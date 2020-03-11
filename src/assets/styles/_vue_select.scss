@@ -1,0 +1,43 @@
+// Design for select
+
+.style-chooser {
+  margin: 1em auto;
+  word-wrap: break-word;
+}
+
+.style-chooser .vs__dropdown-toggle {
+  max-height: 3rem;
+}
+
+.style-chooser .vs__dropdown-menu li {
+  max-width: 100%;
+  box-sizing: border-box;
+  white-space: normal;
+  word-wrap: break-word;
+  border-bottom: 1px solid rgba(112, 128, 144, 0.1);
+}
+
+.style-chooser .vs__dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+.style-chooser .vs__dropdown-menu li a {
+  display: flex;
+  align-items: center;
+}
+
+.style-chooser .vs__search::placeholder,
+.style-chooser .vs__dropdown-toggle,
+.style-chooser .vs__dropdown-menu,
+.style-chooser input {
+  background: #dcf3e7;
+  border: none;
+  color: #394066;
+  text-transform: lowercase;
+  font-variant: small-caps;
+}
+
+.style-chooser .vs__clear,
+.style-chooser .vs__open-indicator {
+  fill: #394066;
+}
