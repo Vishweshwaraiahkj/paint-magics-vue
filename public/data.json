@@ -47,6 +47,28 @@
       "code": "villa_duplex"
     }
   ],
+  "floors": [
+    {
+      "label": "GF",
+      "code": "f0"
+    },
+    {
+      "label": "GF+1",
+      "code": "f1"
+    },
+    {
+      "label": "GF+2",
+      "code": "f2"
+    },
+    {
+      "label": "GF+3",
+      "code": "f3"
+    },
+    {
+      "label": "GF+4",
+      "code": "f4"
+    }
+  ],
   "painttypes": [
     {
       "key": "re_paints",
@@ -571,7 +593,7 @@
           "villa_duplex": 1.8
         }
       },
-      "builtup_area": {
+      "buildup_area": {
         "walls": {
           "1bhk": 0.95,
           "2bhk": 1.2,
@@ -589,13 +611,13 @@
       }
     },
     "exterior": {
-      "builtup_area": {
+      "buildup_area": {
         "walls": {
-          "F0": 2,
-          "F1": 4,
-          "F2": 6,
-          "F3": 8,
-          "F4": 10
+          "f0": 2,
+          "f1": 4,
+          "f2": 6,
+          "f3": 8,
+          "f4": 10
         }
       }
     }

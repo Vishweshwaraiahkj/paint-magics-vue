@@ -27,7 +27,11 @@ input.inputstyle:focus {
   <div class="style-chooser">
     <div class="area_type">
       <span class="buildup_area">Buildup Area</span>
-      <ButtonSwitch v-on:setIsActive="setAreaType($event)" />
+      <ButtonSwitch
+        :key="Math.random()"
+        :options="buttonOptions"
+        v-on:setIsActive="setAreaType($event)"
+      />
       <span class="carpet_area">Carpet Area</span>
     </div>
     <input
@@ -56,7 +60,7 @@ export default {
         return this.$store.state.calculationData.areaValue;
       },
       set(value) {
-        this.$store.commit("updateAreaValue", value);
+        this.$store.commit("UPDATE_AREA_VALUE", value);
       }
     },
     areaType: {
@@ -64,21 +68,52 @@ export default {
         return this.$store.state.calculationData.areaType;
       },
       set(value) {
-        this.$store.commit("updateAreaType", value);
+        this.$store.commit("UPDATE_AREA_TYPE_VALUE", value);
       }
+    },
+    typeValue() {
+      return this.$store.state.calculationData.typeValue.code;
+    },
+    buttonOptions() {
+      return {
+        disabled: this.typeValue == "exterior_paints",
+        isActive: this.buttonActive
+      };
+    },
+    buttonActive() {
+      this.setInitialAreaType();
+      if (this.typeValue == "exterior_paints") {
+        return false;
+      }
+      return true;
     }
   },
   methods: {
     setAreaType(event) {
+      console.log(event);
       if (event) {
         this.areaType = this.area_type.carpet_area;
       } else {
         this.areaType = this.area_type.buildup_area;
       }
+      console.log(this.$store.state.calculationData.areaType.code);
+    },
+    setInitialAreaType() {
+      if (this.typeValue == "exterior_paints") {
+        this.$store.commit(
+          "UPDATE_AREA_TYPE_VALUE",
+          this.area_type.buildup_area
+        );
+      } else {
+        this.$store.commit(
+          "UPDATE_AREA_TYPE_VALUE",
+          this.area_type.carpet_area
+        );
+      }
     }
   },
   mounted() {
-    this.$store.commit("updateAreaType", this.area_type.carpet_area);
+    this.setInitialAreaType();
   }
 };
 </script>

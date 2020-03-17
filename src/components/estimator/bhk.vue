@@ -36,7 +36,7 @@ export default {
         return bhkValue;
       },
       set(value) {
-        this.$store.commit("updateBhkValue", value);
+        this.$store.commit("UPDATE_BHK_VALUE", value);
       }
     }
   }

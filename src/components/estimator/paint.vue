@@ -37,7 +37,7 @@ export default {
         return this.$store.state.calculationData.paintTypeValue;
       },
       set(value) {
-        this.$store.commit("updatePaintTypeValue", value);
+        this.$store.commit("UPDATE_PAINT_TYPE_VALUE", value);
       }
     }
   },
@@ -47,7 +47,7 @@ export default {
       text: "",
       coating: []
     };
-    this.$store.commit("updatePaintTypeValue", initValue);
+    this.$store.commit("UPDATE_PAINT_TYPE_VALUE", initValue);
   }
 };
 </script>

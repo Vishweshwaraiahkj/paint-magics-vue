@@ -11,6 +11,8 @@ export default new Vuex.Store({
       typeValue: {},
       cityValue: {},
       bhkValue: {},
+      floorValue: {},
+      includeCeilingPaint: false,
       paintTypeValue: {
         type: "",
         text: "",
@@ -26,29 +28,35 @@ export default new Vuex.Store({
     ADD_ESTIMATION_DATA(state, data) {
       state.estimationData = data;
     },
-    updateTypeValue(state, typeValue) {
+    UPDATE_TYPE_VALUE(state, typeValue) {
       state.calculationData.typeValue = typeValue;
     },
-    updateCityValue(state, cityValue) {
+    UPDATE_CITY_VALUE(state, cityValue) {
       state.calculationData.cityValue = cityValue;
     },
-    updateBhkValue(state, bhkValue) {
+    UPDATE_BHK_VALUE(state, bhkValue) {
       state.calculationData.bhkValue = bhkValue;
     },
-    updatePaintTypeValue(state, paintTypeValue) {
+    UPDATE_FLOOR_VALUE(state, floorValue) {
+      state.calculationData.floorValue = floorValue;
+    },
+    UPDATE_PAINT_TYPE_VALUE(state, paintTypeValue) {
       state.calculationData.paintTypeValue = paintTypeValue;
     },
-    updateAreaValue(state, areaValue) {
+    UPDATE_AREA_VALUE(state, areaValue) {
       state.calculationData.areaValue = areaValue;
     },
-    updateAreaType(state, areaType) {
+    UPDATE_AREA_TYPE_VALUE(state, areaType) {
       state.calculationData.areaType = areaType;
     },
-    updateWallsPaintProduct(state, wallsPaintProduct) {
+    UPDATE_WALLS_PAINT_PRODUCT(state, wallsPaintProduct) {
       state.calculationData.wallsPaintProduct = wallsPaintProduct;
     },
-    updateCeilingPaintProduct(state, ceilingPaintProduct) {
+    UPDATE_CEILING_PAINT_PRODUCT(state, ceilingPaintProduct) {
       state.calculationData.ceilingPaintProduct = ceilingPaintProduct;
+    },
+    UPDATE_INCLUDE_CEILING_PAINT(state, includeCeilingPaint) {
+      state.calculationData.includeCeilingPaint = includeCeilingPaint;
     }
   },
   actions: {

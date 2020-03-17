@@ -2,7 +2,12 @@
   <!--Binding css variables to use as height/width of :before -> the slider -->
   <div class="toggle-slider" :style="getStyleObject">
     <label class="switch">
-      <input v-model="isActive" type="checkbox" @click="setNewToggleState" />
+      <input
+        :disabled="isDisabled"
+        v-model="isActive"
+        type="checkbox"
+        @click="setNewToggleState"
+      />
       <span class="track">
         <span class="handle"></span>
       </span>
@@ -67,6 +72,12 @@ export default {
         "--track-border-radius": this.track.borderRadius
       };
       return styleObj;
+    },
+    isDisabled: function() {
+      if (this.options && this.options.disabled) {
+        return true;
+      }
+      return false;
     }
   },
   methods: {
@@ -94,7 +105,7 @@ export default {
           this.setBindedProp("track", element);
         });
       }
-      if (this.options.isActive) {
+      if (this.options.isActive !== undefined) {
         this.isActive = this.options.isActive;
       }
     },
@@ -104,7 +115,8 @@ export default {
       }
     },
     setNewToggleState() {
-      this.isActive = !this.isActive;
+      let status = !this.isActive;
+      this.isActive = status;
       this.$emit("setIsActive", this.isActive);
     }
   },

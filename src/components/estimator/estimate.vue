@@ -55,7 +55,14 @@
       <div v-if="optionsPage" class="optionsPage">
         <City v-if="estimationData.cities" :cities="estimationData.cities" />
         <Type v-if="estimationData.types" :types="estimationData.types" />
-        <Bhk v-if="estimationData.bhks" :bhks="estimationData.bhks" />
+        <Bhk
+          v-if="estimationData.bhks && typeValue !== 'exterior_paints'"
+          :bhks="estimationData.bhks"
+        />
+        <Floor
+          v-if="estimationData.floors && typeValue == 'exterior_paints'"
+          :floors="estimationData.floors"
+        />
         <Area
           v-if="estimationData.area_type"
           :area_type="estimationData.area_type"
@@ -121,6 +128,7 @@ import { mapState, mapGetters } from "vuex";
 import City from "@/components/estimator/city.vue";
 import Type from "@/components/estimator/type.vue";
 import Bhk from "@/components/estimator/bhk.vue";
+import Floor from "@/components/estimator/floor.vue";
 import Area from "@/components/estimator/area.vue";
 import Paint from "@/components/estimator/paint.vue";
 import PaintProducts from "@/components/estimator/paintproducts.vue";
@@ -131,6 +139,7 @@ export default {
     City,
     Type,
     Bhk,
+    Floor,
     Area,
     Paint,
     PaintProducts,
@@ -196,6 +205,9 @@ export default {
       result = result[userData.paintTypeValue.key];
 
       return result;
+    },
+    typeValue() {
+      return this.$store.state.calculationData.typeValue.code;
     }
   }
 };

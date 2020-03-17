@@ -52,10 +52,11 @@
   <div class="paint_products">
     <h1>Select Paint Product for walls</h1>
     <div class="paint_product_tabs">
-      <div class="selected_product">
+      <div v-if="Object.keys(wallsPaintProduct)" class="selected_product">
         <label>Product: </label>
         <span>{{ wallsPaintProduct.product }}</span>
       </div>
+
       <b-tabs>
         <b-tab active>
           <template v-slot:title>
@@ -224,7 +225,7 @@ export default {
         return this.$store.state.calculationData.wallsPaintProduct;
       },
       set(value) {
-        this.$store.commit("updateWallsPaintProduct", value);
+        this.$store.commit("UPDATE_WALLS_PAINT_PRODUCT", value);
       }
     },
     ceilingPaintProduct: {
@@ -232,7 +233,7 @@ export default {
         return this.$store.state.calculationData.ceilingPaintProduct;
       },
       set(value) {
-        this.$store.commit("updateCeilingPaintProduct", value);
+        this.$store.commit("UPDATE_CEILING_PAINT_PRODUCT", value);
       }
     }
   },
