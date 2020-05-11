@@ -5,7 +5,7 @@
 </style>
 <template>
   <header class="app-header">
-    <b-navbar toggleable="lg" id="headerBox">
+    <b-navbar toggleable="lg" id="headerBox" fixed="top">
       <b-navbar-brand class="app-logo">
         <router-link to="/">
           <img :src="logo" alt="Paint Magics" width="50px" />
@@ -25,10 +25,10 @@
               >Estimate Calculator</router-link
             ></b-nav-item
           >
-          <b-nav-item href="#servieces">Services</b-nav-item>
-          <b-nav-item href="#how_it_works">How It Works</b-nav-item>
-          <b-nav-item href="#">Design Gallery</b-nav-item>
-          <b-nav-item href="#enquire_us">Contact</b-nav-item>
+          <b-nav-item href="/#servieces">Services</b-nav-item>
+          <b-nav-item href="/#how_it_works">How It Works</b-nav-item>
+          <b-nav-item href="/#">Design Gallery</b-nav-item>
+          <b-nav-item href="/#enquire_us">Contact</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->

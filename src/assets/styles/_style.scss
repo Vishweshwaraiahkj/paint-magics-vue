@@ -94,11 +94,11 @@
   display: flex;
 }
 
-.homeBox:nth-child(even) {
+.homeBox:nth-child(odd) {
   background: #ddd;
 }
 
-.homeBox:nth-child(odd) {
+.homeBox:nth-child(even) {
   background: #fff;
 }
 

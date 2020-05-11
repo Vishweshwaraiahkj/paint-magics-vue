@@ -23,29 +23,37 @@
       </template>
     </v-select>
     <div class="ceiling_paint">
-      <b-form-checkbox
-        v-model="includeCeilingPaint"
-        name="ceiling_paint"
-        switch
-        size="lg"
-        class="mr-3"
-        :disabled="typeValue.code == 'exterior_paints' ? true : false"
+      <ButtonSwitch
+        :key="Math.random()"
+        :options="buttonOptions"
+        v-on:setIsActive="setCeilingStatus($event)"
       >
-        <label class="label_medium">
-          <span>Ceiling Paint </span>
-          <span v-if="includeCeilingPaint">Included</span>
-          <span v-else>Excluded</span>
-        </label>
-      </b-form-checkbox>
+        <template v-slot:after_text>
+          <label class="label_medium switch_label">
+            <span>Ceiling Paint </span>
+            <span v-if="includeCeilingPaint">Included</span>
+            <span v-else>Excluded</span>
+          </label>
+        </template>
+      </ButtonSwitch>
     </div>
   </div>
 </template>
 <script>
+import ButtonSwitch from "@/components/estimator/button-switch.vue";
 export default {
   name: "Type",
   props: ["types"],
+  components: {
+    ButtonSwitch
+  },
   data() {
     return {};
+  },
+  methods: {
+    setCeilingStatus(event) {
+      this.includeCeilingPaint = event;
+    }
   },
   computed: {
     typeValue: {
@@ -70,6 +78,12 @@ export default {
       set(value) {
         this.$store.commit("UPDATE_INCLUDE_CEILING_PAINT", value);
       }
+    },
+    buttonOptions() {
+      return {
+        disabled: this.typeValue.code == "exterior_paints",
+        isActive: this.includeCeilingPaint
+      };
     }
   }
 };

@@ -4,26 +4,28 @@ import axios from "axios";
 
 Vue.use(Vuex);
 
+const initialState = {
+  estimationData: {},
+  calculationData: {
+    typeValue: {},
+    cityValue: {},
+    bhkValue: {},
+    floorValue: {},
+    includeCeilingPaint: false,
+    paintTypeValue: {
+      type: "",
+      text: "",
+      coating: []
+    },
+    areaValue: 0,
+    areaType: {},
+    wallsPaintProduct: {},
+    ceilingPaintProduct: {}
+  }
+};
+
 export default new Vuex.Store({
-  state: {
-    estimationData: {},
-    calculationData: {
-      typeValue: {},
-      cityValue: {},
-      bhkValue: {},
-      floorValue: {},
-      includeCeilingPaint: false,
-      paintTypeValue: {
-        type: "",
-        text: "",
-        coating: []
-      },
-      areaValue: 0,
-      areaType: {},
-      wallsPaintProduct: {},
-      ceilingPaintProduct: {}
-    }
-  },
+  state: initialState,
   mutations: {
     ADD_ESTIMATION_DATA(state, data) {
       state.estimationData = data;
@@ -57,6 +59,10 @@ export default new Vuex.Store({
     },
     UPDATE_INCLUDE_CEILING_PAINT(state, includeCeilingPaint) {
       state.calculationData.includeCeilingPaint = includeCeilingPaint;
+    },
+    LOAD_INITIAL_STATE(state) {
+      state.calculationData.wallsPaintProduct = {};
+      state.calculationData.ceilingPaintProduct = {};
     }
   },
   actions: {
@@ -67,6 +73,9 @@ export default new Vuex.Store({
         .then(data => {
           commit("ADD_ESTIMATION_DATA", data);
         });
+    },
+    loadInitialState({ commit }) {
+      commit("LOAD_INITIAL_STATE");
     }
   },
   getters: {

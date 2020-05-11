@@ -90,6 +90,356 @@
     }
   ],
   "paintproducts": {
+    "ceiling_paints": {
+      "fresh_paints": {
+        "economy": [
+          {
+            "product": "Asian Paints - Tractor Emulsion",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Low-Medium"
+            },
+            "rate": 19
+          },
+          {
+            "product": "Asian Paints - Tractor Emulsion Advanced",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Low-Medium"
+            },
+            "rate": 19.5
+          }
+        ],
+        "standard": [
+          {
+            "product": "Asian Paints - Apcolite Premium Emulsion",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Medium"
+            },
+            "rate": 22
+          },
+          {
+            "product": "Asian Paints - Apcolite Advanced Emulsion",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Medium"
+            },
+            "rate": 24
+          },
+          {
+            "product": "Asian Paints - Apcolite Premium Satin Emulsion",
+            "quality": {
+              "finish": "Soft Sheen",
+              "washability": "Medium",
+              "durability": "Medium"
+            },
+            "rate": 24
+          }
+        ],
+        "premium": [
+          {
+            "product": "Asian Paints - Royale Luxury Emulsion",
+            "quality": {
+              "finish": "Soft Sheen",
+              "washability": "High",
+              "durability": "High"
+            },
+            "rate": 26
+          },
+          {
+            "product": "Asian Paints - Royale Shyne",
+            "quality": {
+              "finish": "High Sheen",
+              "washability": "High",
+              "durability": "Very High"
+            },
+            "rate": 28
+          },
+          {
+            "product": "Asian Paints - Royale Matt",
+            "quality": {
+              "finish": "Matt",
+              "washability": "High",
+              "durability": "High"
+            },
+            "rate": 28
+          },
+          {
+            "product": "Asian Paints - Royale Health Shield",
+            "quality": {
+              "finish": "Matt",
+              "washability": "High",
+              "durability": "Very High"
+            },
+            "rate": 30
+          },
+          {
+            "product": "Asian Paints - Royale Atmos",
+            "quality": {
+              "finish": "Matt",
+              "washability": "High",
+              "durability": "Very High"
+            },
+            "rate": 30
+          },
+          {
+            "product": "Asian Paints - Royale Aspira",
+            "quality": {
+              "finish": "Smooth Sheen",
+              "washability": "High",
+              "durability": "Excellent"
+            },
+            "rate": 33
+          },
+          {
+            "product": "Asian Paints - Royale Lustre",
+            "quality": {
+              "finish": "Very High Sheen",
+              "washability": "High",
+              "durability": "High"
+            },
+            "rate": 33
+          }
+        ]
+      },
+      "re_paints": {
+        "economy": [
+          {
+            "product": "Asian Paints - Tractor Emulsion",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Low-Medium"
+            },
+            "rate": 17
+          },
+          {
+            "product": "Asian Paints - Tractor Emulsion Advanced",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Low-Medium"
+            },
+            "rate": 17.5
+          }
+        ],
+        "standard": [
+          {
+            "product": "Asian Paints - Apcolite Premium Emulsion",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Medium"
+            },
+            "rate": 20
+          },
+          {
+            "product": "Asian Paints - Apcolite Advanced Emulsion",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Medium"
+            },
+            "rate": 22
+          },
+          {
+            "product": "Asian Paints - Apcolite Premium Satin Emulsion",
+            "quality": {
+              "finish": "Soft Sheen",
+              "washability": "Medium",
+              "durability": "Medium"
+            },
+            "rate": 22
+          }
+        ],
+        "premium": [
+          {
+            "product": "Asian Paints - Royale Luxury Emulsion",
+            "quality": {
+              "finish": "Soft Sheen",
+              "washability": "High",
+              "durability": "High"
+            },
+            "rate": 24
+          },
+          {
+            "product": "Asian Paints - Royale Shyne",
+            "quality": {
+              "finish": "High Sheen",
+              "washability": "High",
+              "durability": "Very High"
+            },
+            "rate": 26
+          },
+          {
+            "product": "Asian Paints - Royale Matt",
+            "quality": {
+              "finish": "Matt",
+              "washability": "High",
+              "durability": "High"
+            },
+            "rate": 26
+          },
+          {
+            "product": "Asian Paints - Royale Health Shield",
+            "quality": {
+              "finish": "Matt",
+              "washability": "High",
+              "durability": "Very High"
+            },
+            "rate": 28
+          },
+          {
+            "product": "Asian Paints - Royale Atmos",
+            "quality": {
+              "finish": "Matt",
+              "washability": "High",
+              "durability": "Very High"
+            },
+            "rate": 28
+          },
+          {
+            "product": "Asian Paints - Royale Aspira",
+            "quality": {
+              "finish": "Smooth Sheen",
+              "washability": "High",
+              "durability": "Excellent"
+            },
+            "rate": 31
+          },
+          {
+            "product": "Asian Paints - Royale Lustre",
+            "quality": {
+              "finish": "Very High Sheen",
+              "washability": "High",
+              "durability": "High"
+            },
+            "rate": 31
+          }
+        ]
+      },
+      "rental_paints": {
+        "economy": [
+          {
+            "product": "Asian Paints - Tractor Emulsion",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Low-Medium"
+            },
+            "rate": 17
+          },
+          {
+            "product": "Asian Paints - Tractor Emulsion Advanced",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Low-Medium"
+            },
+            "rate": 17.5
+          }
+        ],
+        "standard": [
+          {
+            "product": "Asian Paints - Apcolite Premium Emulsion",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Medium"
+            },
+            "rate": 20
+          },
+          {
+            "product": "Asian Paints - Apcolite Advanced Emulsion",
+            "quality": {
+              "finish": "Matt",
+              "washability": "Low",
+              "durability": "Medium"
+            },
+            "rate": 22
+          },
+          {
+            "product": "Asian Paints - Apcolite Premium Satin Emulsion",
+            "quality": {
+              "finish": "Soft Sheen",
+              "washability": "Medium",
+              "durability": "Medium"
+            },
+            "rate": 22
+          }
+        ],
+        "premium": [
+          {
+            "product": "Asian Paints - Royale Luxury Emulsion",
+            "quality": {
+              "finish": "Soft Sheen",
+              "washability": "High",
+              "durability": "High"
+            },
+            "rate": 24
+          },
+          {
+            "product": "Asian Paints - Royale Shyne",
+            "quality": {
+              "finish": "High Sheen",
+              "washability": "High",
+              "durability": "Very High"
+            },
+            "rate": 26
+          },
+          {
+            "product": "Asian Paints - Royale Matt",
+            "quality": {
+              "finish": "Matt",
+              "washability": "High",
+              "durability": "High"
+            },
+            "rate": 26
+          },
+          {
+            "product": "Asian Paints - Royale Health Shield",
+            "quality": {
+              "finish": "Matt",
+              "washability": "High",
+              "durability": "Very High"
+            },
+            "rate": 28
+          },
+          {
+            "product": "Asian Paints - Royale Atmos",
+            "quality": {
+              "finish": "Matt",
+              "washability": "High",
+              "durability": "Very High"
+            },
+            "rate": 28
+          },
+          {
+            "product": "Asian Paints - Royale Aspira",
+            "quality": {
+              "finish": "Smooth Sheen",
+              "washability": "High",
+              "durability": "Excellent"
+            },
+            "rate": 31
+          },
+          {
+            "product": "Asian Paints - Royale Lustre",
+            "quality": {
+              "finish": "Very High Sheen",
+              "washability": "High",
+              "durability": "High"
+            },
+            "rate": 31
+          }
+        ]
+      }
+    },
     "interior_paints": {
       "fresh_paints": {
         "economy": [

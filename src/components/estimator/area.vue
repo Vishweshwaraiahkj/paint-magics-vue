@@ -90,13 +90,11 @@ export default {
   },
   methods: {
     setAreaType(event) {
-      console.log(event);
       if (event) {
         this.areaType = this.area_type.carpet_area;
       } else {
         this.areaType = this.area_type.buildup_area;
       }
-      console.log(this.$store.state.calculationData.areaType.code);
     },
     setInitialAreaType() {
       if (this.typeValue == "exterior_paints") {

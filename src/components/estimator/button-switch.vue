@@ -1,6 +1,7 @@
 <template>
   <!--Binding css variables to use as height/width of :before -> the slider -->
   <div class="toggle-slider" :style="getStyleObject">
+    <slot name="before_text"></slot>
     <label class="switch">
       <input
         :disabled="isDisabled"
@@ -12,6 +13,7 @@
         <span class="handle"></span>
       </span>
     </label>
+    <slot name="after_text"></slot>
   </div>
 </template>
 
@@ -150,6 +152,7 @@ export default {
     border: var(--track-border-width) solid var(--track-color);
     border-radius: var(--track-border-radius);
     transition: 0.4s;
+
     .handle {
       display: flex;
       width: var(--handle-diameter);
@@ -169,5 +172,13 @@ export default {
   input:checked + .track > .handle {
     transform: translateX(var(--handle-distance));
   }
+}
+
+.switch_label {
+  position: absolute;
+  display: inline-block;
+  height: var(--track-height);
+  margin-top: 5px;
+  margin-left: 1rem;
 }
 </style>

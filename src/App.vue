@@ -1,3 +1,15 @@
+<style scoped>
+.content-body {
+  display: flex;
+  margin-top: 75px;
+}
+.app.home {
+  margin-top: -75px;
+}
+.estimator {
+  flex: 1;
+}
+</style>
 <template>
   <div id="app">
     <CommonHeader :key="Math.random()" />

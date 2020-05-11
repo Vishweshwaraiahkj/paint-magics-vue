@@ -52,6 +52,12 @@
 <template>
   <div class="estimateContainer">
     <b-form>
+      <div v-if="errors.length">
+        <b>Please correct the following error(s):</b>
+        <ul>
+          <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+        </ul>
+      </div>
       <div v-if="optionsPage" class="optionsPage">
         <City v-if="estimationData.cities" :cities="estimationData.cities" />
         <Type v-if="estimationData.types" :types="estimationData.types" />
@@ -63,21 +69,12 @@
           v-if="estimationData.floors && typeValue == 'exterior_paints'"
           :floors="estimationData.floors"
         />
-        <Area
-          v-if="estimationData.area_type"
-          :area_type="estimationData.area_type"
-        />
-        <Paint
-          v-if="estimationData.painttypes"
-          :painttypes="estimationData.painttypes"
-        />
+        <Area v-if="estimationData.area_type" :area_type="estimationData.area_type" />
+        <Paint v-if="estimationData.painttypes" :painttypes="estimationData.painttypes" />
       </div>
 
       <div v-if="paintProducts" class="paintProducts">
-        <PaintProducts
-          v-if="filteredPaintproducts"
-          :paintproducts="filteredPaintproducts"
-        />
+        <PaintProducts v-if="filteredPaintproducts" :paintproducts="filteredPaintproducts" />
       </div>
 
       <div v-if="resultsPage" class="resultsPage">
@@ -91,31 +88,29 @@
         <div class="action-btns">
           <span>
             <b-button
+              variant="light"
               :disabled="!previousPage"
-              @click="navigateTo(previousPage)"
+              @click="navigateTo(previousPage, 'prev')"
+              class="px-5"
             >
-              Previous
+              <fa-icon :icon="['fas', 'arrow-left']" size="2x" />
             </b-button>
           </span>
           <span>
-            <b-button :disabled="!nextPage" @click="navigateTo(nextPage)">
-              Next
+            <b-button
+              variant="light"
+              :disabled="!nextPage"
+              @click="navigateTo(nextPage, 'next')"
+              class="px-5"
+            >
+              <fa-icon :icon="['fas', 'arrow-right']" size="2x" />
             </b-button>
           </span>
         </div>
         <div class="statusIndicators">
-          <span
-            class="options colorIndicator"
-            :class="{ active: optionsPage }"
-          ></span>
-          <span
-            class="paintProds colorIndicator"
-            :class="{ active: paintProducts }"
-          ></span>
-          <span
-            class="results colorIndicator"
-            :class="{ active: resultsPage }"
-          ></span>
+          <span class="options colorIndicator" :class="{ active: optionsPage }"></span>
+          <span class="paintProds colorIndicator" :class="{ active: paintProducts }"></span>
+          <span class="results colorIndicator" :class="{ active: resultsPage }"></span>
         </div>
       </div>
     </b-form>
@@ -151,16 +146,28 @@ export default {
       paintProducts: false,
       resultsPage: false,
       previousPage: null,
-      nextPage: "paintProducts"
+      nextPage: "paintProducts",
+      errors: []
     };
   },
   methods: {
-    navigateTo(pageType) {
-      console.log(
-        "Calculation Data in " + pageType + " Page: ",
-        this.$store.state.calculationData
-      );
-      if (pageType == "paintProducts") {
+    navigateTo(pageType, action) {
+      if (action == "next") {
+        let errorResult = this.checkForm();
+        if (errorResult) return;
+      }
+
+      if (action == "prev") {
+        this.$store.dispatch("loadInitialState");
+      }
+
+      if (pageType == "optionsPage") {
+        this.optionsPage = true;
+        this.paintProducts = false;
+        this.resultsPage = false;
+        this.previousPage = null;
+        this.nextPage = "paintProducts";
+      } else if (pageType == "paintProducts") {
         this.optionsPage = false;
         this.paintProducts = true;
         this.resultsPage = false;
@@ -172,12 +179,43 @@ export default {
         this.resultsPage = true;
         this.previousPage = "paintProducts";
         this.nextPage = null;
-      } else if (pageType == "optionsPage") {
-        this.optionsPage = true;
-        this.paintProducts = false;
-        this.resultsPage = false;
-        this.previousPage = null;
-        this.nextPage = "paintProducts";
+      }
+    },
+    checkForm: function() {
+      let userData = this.$store.state.calculationData;
+      this.errors = [];
+
+      if (!Object.keys(userData.cityValue).length) {
+        this.errors.push("City is required.");
+      }
+
+      if (!userData.typeValue.code) {
+        this.errors.push("Type is required!.");
+      }
+
+      if (
+        !Object.keys(userData.bhkValue).length &&
+        !Object.keys(userData.floorValue).length
+      ) {
+        this.errors.push("BHK/FLOOR required.");
+      }
+
+      if (!Object.keys(userData.areaType).length) {
+        this.errors.push("Carpet/Buildup area is required.");
+      }
+
+      if (!userData.areaValue) {
+        this.errors.push("Area in sqft is required.");
+      }
+
+      if (!userData.paintTypeValue.text) {
+        this.errors.push("Paint type is required.");
+      }
+
+      if (!this.errors.length) {
+        return false;
+      } else {
+        return true;
       }
     }
   },
@@ -198,11 +236,24 @@ export default {
 
       let userData = this.$store.state.calculationData;
 
+      console.log("Data", userData);
+
       // filter with type
-      let result = filteredData[userData.typeValue.code];
+      let result = {
+        non_ceiling: {},
+        ceiling: {}
+      };
+
+      let non_ceiling = filteredData[userData.typeValue.code];
 
       // filter withpaint types
-      result = result[userData.paintTypeValue.key];
+      if (non_ceiling)
+        result.non_ceiling = non_ceiling[userData.paintTypeValue.key];
+
+      if (userData.includeCeilingPaint) {
+        let ceiling = filteredData["ceiling_paints"];
+        result.ceiling = ceiling[userData.paintTypeValue.key];
+      }
 
       return result;
     },

@@ -1,17 +1,24 @@
 export const EstimationCalculator = data => {
-  debugger;
+  let errors = {
+    error: false,
+    messages: []
+  };
   console.log("Data in JS file: ", data);
   let sqft_area = data.calculationData.areaValue
     ? data.calculationData.areaValue
     : 0;
-  // let wall_paint_rate = 0;
-  // let ceiling_paint_rate = 0;
+
+  if (!sqft_area) {
+    errors.error = true;
+    errors.messages.push("Please enter a proper Area in square foot!");
+  }
+
+  let wall_paint_rate = 0;
+  let ceiling_paint_rate = 0;
   let ip_walls_obj = {};
   let ip_ceiling_obj = {};
   let ip_for_walls = 0;
   let ip_for_ceiling = 0;
-  // let sqft_with_ip = 0;
-  // let sqft_with_ceiling = 0;
   let final_price_without_ceiling = 0;
   let final_price_with_ceiling = 0;
 
@@ -93,19 +100,33 @@ export const EstimationCalculator = data => {
     }
   }
 
+  if (data.calculationData.wallsPaintProduct.rate) {
+    wall_paint_rate = data.calculationData.wallsPaintProduct.rate;
+  }
   if (ip_for_walls) {
-    final_price_without_ceiling =
-      sqft_area * ip_for_walls * data.calculationData.wallsPaintProduct.rate;
+    final_price_without_ceiling = sqft_area * ip_for_walls * wall_paint_rate;
   }
 
-  if (ip_for_ceiling) {
-    final_price_with_ceiling =
-      sqft_area *
-      ip_for_ceiling *
-      data.calculationData.wallsPaintProduct.ceiling_rate;
+  if (data.calculationData.ceilingPaintProduct.rate) {
+    ceiling_paint_rate = data.calculationData.ceilingPaintProduct.rate;
   }
 
-  let res = final_price_without_ceiling + final_price_with_ceiling;
+  if (ip_for_ceiling && data.calculationData.includeCeilingPaint) {
+    final_price_with_ceiling = sqft_area * ip_for_ceiling * ceiling_paint_rate;
+  }
 
-  return res;
+  const totalPrice = final_price_without_ceiling + final_price_with_ceiling;
+  let result = {};
+  if (totalPrice) {
+    result = {
+      error: false,
+      total: totalPrice
+    }
+  }
+
+  if (result && result.total) {
+    return result;
+  } else {
+    return errors;
+  }
 };

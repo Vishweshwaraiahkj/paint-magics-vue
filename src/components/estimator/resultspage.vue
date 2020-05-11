@@ -1,13 +1,72 @@
 <template>
   <div class="results_page">
-    <h1>Your Results:</h1>
-    <div v-if="Object.keys(wallsPaintProduct).length !== 0">
-      <pre>{{ wallsPaintProduct }}</pre>
+    <div v-if="errors.length">
+      <b>Please correct the following error(s):</b>
+      <ul>
+        <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+      </ul>
     </div>
-    <div v-if="Object.keys(ceilingPaintProduct).length !== 0">
-      <pre>{{ ceilingPaintProduct }}</pre>
+    <div v-else>
+      <h1>Your Results:</h1>
+      <div v-if="Object.keys(wallsPaintProduct).length !== 0">
+        <h2>Wall Paint Details</h2>
+        <div>
+          <label>Wall Paint Product:</label>
+          <span>{{ wallsPaintProduct.product }}</span>
+        </div>
+        <div>
+          <label>Wall Paint Quality:</label>
+          <div>
+            <label>Finish:</label>
+            <span>{{ wallsPaintProduct.quality.finish }}</span>
+          </div>
+          <div>
+            <label>Washability:</label>
+            <span>{{ wallsPaintProduct.quality.washability }}</span>
+          </div>
+          <div>
+            <label>Durability:</label>
+            <span>{{ wallsPaintProduct.quality.durability }}</span>
+          </div>
+        </div>
+        <div>
+          <label>Wall Paint Base Rate Per Each:</label>
+          <span>{{ wallsPaintProduct.rate }}</span>
+        </div>
+        <hr />
+      </div>
+      <div v-if="Object.keys(ceilingPaintProduct).length !== 0">
+        <h2>Ceiling Paint Details</h2>
+        <div>
+          <label>Ceiling Paint Product:</label>
+          <span>{{ ceilingPaintProduct.product }}</span>
+        </div>
+        <div>
+          <label>Ceiling Paint Quality:</label>
+          <div>
+            <label>Finish:</label>
+            <span>{{ ceilingPaintProduct.quality.finish }}</span>
+          </div>
+          <div>
+            <label>Washability:</label>
+            <span>{{ ceilingPaintProduct.quality.washability }}</span>
+          </div>
+          <div>
+            <label>Durability:</label>
+            <span>{{ ceilingPaintProduct.quality.durability }}</span>
+          </div>
+        </div>
+        <div>
+          <label>Ceiling Paint Base Rate Per Each:</label>
+          <span>{{ ceilingPaintProduct.rate }}</span>
+        </div>
+        <hr />
+      </div>
+      <h1>
+        <label>Final Price:</label>
+        {{ finalRes }}
+      </h1>
     </div>
-    <h1>{{ finalRes }}</h1>
   </div>
 </template>
 <script>
@@ -19,7 +78,8 @@ export default {
   data() {
     return {
       finalRes: 0,
-      fullData: {}
+      fullData: {},
+      errors: []
     };
   },
   methods: {},
@@ -40,8 +100,13 @@ export default {
       calculationData: this.$store.state.calculationData,
       increasing_prop: this.increasing_prop
     });
+
     this.fullData = this.$store.state.calculationData;
-    this.finalRes = result;
+    if (result.error) {
+      this.errors = result.messages;
+    } else {
+      this.finalRes = result.total;
+    }
   }
 };
 </script>
