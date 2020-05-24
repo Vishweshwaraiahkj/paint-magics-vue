@@ -3,7 +3,9 @@
     <div v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
-        <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+        <li v-for="(error, index) in errors" :key="index">
+          <b-alert show variant="danger">{{ error }}</b-alert>
+        </li>
       </ul>
     </div>
     <div v-else>

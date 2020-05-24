@@ -59,7 +59,7 @@
         "
         class="selected_product"
       >
-        <label>Wall Paint: </label>
+        <label>Wall Paint:</label>
         <span>{{ wallsPaintProduct.product }}</span>
       </div>
       <b-tabs v-if="Object.keys(paintproducts.non_ceiling).length">
@@ -83,27 +83,25 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="economy.product">
-                    <v-clamp autoresize :max-lines="1">
-                      {{ economy.product }}
-                    </v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{ economy.product }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
-                  <label>Price: </label>
+                  <label>Price:</label>
                   <fa-icon :icon="['fas', 'rupee-sign']" />
                   <span>{{ economy.rate }}</span>
                 </div>
                 <b-card-text class="d-flex flex-column">
                   <div>
-                    <label>Finish: </label>
+                    <label>Finish:</label>
                     <span>{{ economy.quality.finish }}</span>
                   </div>
                   <div>
-                    <label>Washability: </label>
+                    <label>Washability:</label>
                     <span>{{ economy.quality.washability }}</span>
                   </div>
                   <div>
-                    <label>Durability: </label>
+                    <label>Durability:</label>
                     <span>{{ economy.quality.durability }}</span>
                   </div>
                 </b-card-text>
@@ -133,27 +131,25 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="standard.product">
-                    <v-clamp autoresize :max-lines="1">
-                      {{ standard.product }}
-                    </v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{ standard.product }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
-                  <label>Price: </label>
+                  <label>Price:</label>
                   <fa-icon :icon="['fas', 'rupee-sign']" />
                   <span>{{ standard.rate }}</span>
                 </div>
                 <b-card-text class="d-flex flex-column">
                   <div>
-                    <label>Finish: </label>
+                    <label>Finish:</label>
                     <span>{{ standard.quality.finish }}</span>
                   </div>
                   <div>
-                    <label>Washability: </label>
+                    <label>Washability:</label>
                     <span>{{ standard.quality.washability }}</span>
                   </div>
                   <div>
-                    <label>Durability: </label>
+                    <label>Durability:</label>
                     <span>{{ standard.quality.durability }}</span>
                   </div>
                 </b-card-text>
@@ -181,27 +177,25 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="premium.product">
-                    <v-clamp autoresize :max-lines="1">
-                      {{ premium.product }}
-                    </v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{ premium.product }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
-                  <label>Price: </label>
+                  <label>Price:</label>
                   <fa-icon :icon="['fas', 'rupee-sign']" />
                   <span>{{ premium.rate }}</span>
                 </div>
                 <b-card-text class="d-flex flex-column">
                   <div>
-                    <label>Finish: </label>
+                    <label>Finish:</label>
                     <span>{{ premium.quality.finish }}</span>
                   </div>
                   <div>
-                    <label>Washability: </label>
+                    <label>Washability:</label>
                     <span>{{ premium.quality.washability }}</span>
                   </div>
                   <div>
-                    <label>Durability: </label>
+                    <label>Durability:</label>
                     <span>{{ premium.quality.durability }}</span>
                   </div>
                 </b-card-text>
@@ -210,10 +204,8 @@
           </div>
         </b-tab>
       </b-tabs>
-      <div v-else>
-        No products! Please check with our support team.
-      </div>
-
+      <div v-else>No products! Please check with our support team.</div>
+      <slot name="wallpaintError"></slot>
       <h3 v-if="Object.keys(paintproducts.ceiling).length">Ceiling Paints</h3>
       <div
         v-if="
@@ -221,7 +213,7 @@
         "
         class="selected_product"
       >
-        <label>Ceiling Paint: </label>
+        <label>Ceiling Paint:</label>
         <span>{{ ceilingPaintProduct.product }}</span>
       </div>
       <b-tabs v-if="Object.keys(paintproducts.ceiling).length">
@@ -249,27 +241,25 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="economy.product">
-                    <v-clamp autoresize :max-lines="1">
-                      {{ economy.product }}
-                    </v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{ economy.product }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
-                  <label>Price: </label>
+                  <label>Price:</label>
                   <fa-icon :icon="['fas', 'rupee-sign']" />
                   <span>{{ economy.rate }}</span>
                 </div>
                 <b-card-text class="d-flex flex-column">
                   <div>
-                    <label>Finish: </label>
+                    <label>Finish:</label>
                     <span>{{ economy.quality.finish }}</span>
                   </div>
                   <div>
-                    <label>Washability: </label>
+                    <label>Washability:</label>
                     <span>{{ economy.quality.washability }}</span>
                   </div>
                   <div>
-                    <label>Durability: </label>
+                    <label>Durability:</label>
                     <span>{{ economy.quality.durability }}</span>
                   </div>
                 </b-card-text>
@@ -301,27 +291,25 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="standard.product">
-                    <v-clamp autoresize :max-lines="1">
-                      {{ standard.product }}
-                    </v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{ standard.product }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
-                  <label>Price: </label>
+                  <label>Price:</label>
                   <fa-icon :icon="['fas', 'rupee-sign']" />
                   <span>{{ standard.rate }}</span>
                 </div>
                 <b-card-text class="d-flex flex-column">
                   <div>
-                    <label>Finish: </label>
+                    <label>Finish:</label>
                     <span>{{ standard.quality.finish }}</span>
                   </div>
                   <div>
-                    <label>Washability: </label>
+                    <label>Washability:</label>
                     <span>{{ standard.quality.washability }}</span>
                   </div>
                   <div>
-                    <label>Durability: </label>
+                    <label>Durability:</label>
                     <span>{{ standard.quality.durability }}</span>
                   </div>
                 </b-card-text>
@@ -353,27 +341,25 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="premium.product">
-                    <v-clamp autoresize :max-lines="1">
-                      {{ premium.product }}
-                    </v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{ premium.product }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
-                  <label>Price: </label>
+                  <label>Price:</label>
                   <fa-icon :icon="['fas', 'rupee-sign']" />
                   <span>{{ premium.rate }}</span>
                 </div>
                 <b-card-text class="d-flex flex-column">
                   <div>
-                    <label>Finish: </label>
+                    <label>Finish:</label>
                     <span>{{ premium.quality.finish }}</span>
                   </div>
                   <div>
-                    <label>Washability: </label>
+                    <label>Washability:</label>
                     <span>{{ premium.quality.washability }}</span>
                   </div>
                   <div>
-                    <label>Durability: </label>
+                    <label>Durability:</label>
                     <span>{{ premium.quality.durability }}</span>
                   </div>
                 </b-card-text>
@@ -382,6 +368,7 @@
           </div>
         </b-tab>
       </b-tabs>
+      <slot name="ceilingpaintError"></slot>
     </div>
   </div>
 </template>

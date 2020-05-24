@@ -9,7 +9,7 @@
         :key="slide.id"
         class="service_card"
       >
-        <h5 class="m-2">
+        <h5 class="card_title">
           <v-clamp autoresize :max-lines="1">{{ slide.name }}</v-clamp>
         </h5>
       </b-card>

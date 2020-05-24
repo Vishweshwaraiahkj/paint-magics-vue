@@ -19,14 +19,10 @@
           <b-nav-item v-if="homePage">
             <router-link to="/">Home</router-link>
           </b-nav-item>
-          <b-nav-item><router-link to="/about">About</router-link></b-nav-item>
-          <b-nav-item
-            ><router-link to="/estimator"
-              >Estimate Calculator</router-link
-            ></b-nav-item
-          >
+          <b-nav-item>
+            <router-link to="/estimator">Estimate Calculator</router-link>
+          </b-nav-item>
           <b-nav-item href="/#servieces">Services</b-nav-item>
-          <b-nav-item href="/#how_it_works">How It Works</b-nav-item>
           <b-nav-item href="/#">Design Gallery</b-nav-item>
           <b-nav-item href="/#enquire_us">Contact</b-nav-item>
         </b-navbar-nav>
@@ -34,11 +30,14 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav right class="ml-auto">
           <b-nav-item>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit"
-              ><span class="calluson">
-                &nbsp;&nbsp; <a href="tel:+919741252425">+91-9741-252425</a>
-              </span></b-button
-            >
+            <b-button size="sm" variant="light" class="my-2 my-sm-0 mobile" type="submit">
+              <span class="icon">
+                <fa-icon :icon="['fas', 'mobile-alt']" class="mr-2" />
+              </span>
+              <span class="calluson">
+                <a class="text-dark" href="tel:+919741252425">+91-9741-252425</a>
+              </span>
+            </b-button>
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
@@ -66,9 +65,6 @@ export default {
       let height = document.getElementById("headerBox").offsetHeight;
       return height;
     }
-  },
-  mounted: function() {
-    console.log(this.headerHeight());
   }
 };
 </script>

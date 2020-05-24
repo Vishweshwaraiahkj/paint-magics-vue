@@ -8,14 +8,10 @@
       class="style-chooser"
     >
       <template #search="{attributes, events}">
-        <input
-          class="vs__search"
-          :required="!cityValue"
-          v-bind="attributes"
-          v-on="events"
-        />
+        <input class="vs__search" :required="!cityValue" v-bind="attributes" v-on="events" />
       </template>
     </v-select>
+    <slot></slot>
   </div>
 </template>
 <script>

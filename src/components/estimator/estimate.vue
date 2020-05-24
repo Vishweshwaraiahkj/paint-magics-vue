@@ -52,29 +52,72 @@
 <template>
   <div class="estimateContainer">
     <b-form>
-      <div v-if="errors.length">
+      <div class="c-error" v-if="Object.keys(errors).length && errorsLength > 0">
         <b>Please correct the following error(s):</b>
-        <ul>
-          <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
-        </ul>
       </div>
+
       <div v-if="optionsPage" class="optionsPage">
-        <City v-if="estimationData.cities" :cities="estimationData.cities" />
-        <Type v-if="estimationData.types" :types="estimationData.types" />
+        <City v-if="estimationData.cities" :cities="estimationData.cities">
+          <ErrorMessage
+            v-if="errors.city && !Object.keys(userData.cityValue).length"
+            :errorMessage="errors.city.message"
+          />
+        </City>
+
+        <Type v-if="estimationData.types" :types="estimationData.types">
+          <ErrorMessage
+            v-if="errors.type && !userData.typeValue.code"
+            :errorMessage="errors.type.message"
+          />
+        </Type>
+
         <Bhk
           v-if="estimationData.bhks && typeValue !== 'exterior_paints'"
           :bhks="estimationData.bhks"
-        />
+        >
+          <ErrorMessage
+            v-if="(errors.bhk && !Object.keys(userData.bhkValue).length)"
+            :errorMessage="errors.bhk.message"
+          />
+        </Bhk>
         <Floor
           v-if="estimationData.floors && typeValue == 'exterior_paints'"
           :floors="estimationData.floors"
-        />
+        >
+          <ErrorMessage
+            v-if="errors.floor && !Object.keys(userData.floorValue).length"
+            :errorMessage="errors.floor.message"
+          />
+        </Floor>
+
         <Area v-if="estimationData.area_type" :area_type="estimationData.area_type" />
+        <ErrorMessage
+          v-if="errors.area_value && (!userData.areaValue || userData.areaValue == 0)"
+          :errorMessage="errors.area_value.message"
+        />
+
         <Paint v-if="estimationData.painttypes" :painttypes="estimationData.painttypes" />
+        <ErrorMessage
+          v-if="errors.paint_type && !userData.paintTypeValue.text"
+          :errorMessage="errors.paint_type.message"
+        />
       </div>
 
       <div v-if="paintProducts" class="paintProducts">
-        <PaintProducts v-if="filteredPaintproducts" :paintproducts="filteredPaintproducts" />
+        <PaintProducts v-if="filteredPaintproducts" :paintproducts="filteredPaintproducts">
+          <template v-slot:wallpaintError>
+            <ErrorMessage
+              v-if="paint_errors.wallpaint_error"
+              :errorMessage="paint_errors.wallpaint_error.message"
+            />
+          </template>
+          <template v-slot:ceilingpaintError>
+            <ErrorMessage
+              v-if="paint_errors.ceilingpaint_error"
+              :errorMessage="paint_errors.ceilingpaint_error.message"
+            />
+          </template>
+        </PaintProducts>
       </div>
 
       <div v-if="resultsPage" class="resultsPage">
@@ -86,7 +129,7 @@
 
       <div class="action-bar">
         <div class="action-btns">
-          <span>
+          <!-- <span>
             <b-button
               variant="light"
               :disabled="!previousPage"
@@ -95,15 +138,16 @@
             >
               <fa-icon :icon="['fas', 'arrow-left']" size="2x" />
             </b-button>
-          </span>
+          </span>-->
           <span>
             <b-button
               variant="light"
               :disabled="!nextPage"
               @click="navigateTo(nextPage, 'next')"
-              class="px-5"
+              class="px-5 font-weight-bold"
             >
-              <fa-icon :icon="['fas', 'arrow-right']" size="2x" />
+              {{ BtnName }}
+              <fa-icon :icon="['fas', 'arrow-right']" size="1x" class="ml-3" />
             </b-button>
           </span>
         </div>
@@ -128,6 +172,7 @@ import Area from "@/components/estimator/area.vue";
 import Paint from "@/components/estimator/paint.vue";
 import PaintProducts from "@/components/estimator/paintproducts.vue";
 import ResultsPage from "@/components/estimator/resultspage.vue";
+import ErrorMessage from "@/components/common/ErrorMessage.vue";
 export default {
   name: "Estimate",
   components: {
@@ -138,7 +183,8 @@ export default {
     Area,
     Paint,
     PaintProducts,
-    ResultsPage
+    ResultsPage,
+    ErrorMessage
   },
   data() {
     return {
@@ -147,14 +193,24 @@ export default {
       resultsPage: false,
       previousPage: null,
       nextPage: "paintProducts",
-      errors: []
+      errors: {},
+      errorsLength: 0,
+      paint_errors: {},
+      userData: this.$store.state.calculationData,
+      BtnName: "Select Paint"
     };
   },
   methods: {
     navigateTo(pageType, action) {
       if (action == "next") {
-        let errorResult = this.checkForm();
-        if (errorResult) return;
+        if (pageType == "paintProducts") {
+          this.BtnName = "Finish";
+          if (this.checkForm()) return;
+        }
+
+        if (pageType == "resultsPage") {
+          if (this.checkPaints()) return;
+        }
       }
 
       if (action == "prev") {
@@ -182,37 +238,93 @@ export default {
       }
     },
     checkForm: function() {
-      let userData = this.$store.state.calculationData;
-      this.errors = [];
+      let userData = this.userData;
+      this.errors = {};
 
       if (!Object.keys(userData.cityValue).length) {
-        this.errors.push("City is required.");
+        this.errors.city = {
+          type: "city",
+          message: "City is required."
+        };
       }
 
       if (!userData.typeValue.code) {
-        this.errors.push("Type is required!.");
+        this.errors.type = {
+          type: "type",
+          message: "Type is required!."
+        };
       }
 
-      if (
-        !Object.keys(userData.bhkValue).length &&
-        !Object.keys(userData.floorValue).length
-      ) {
-        this.errors.push("BHK/FLOOR required.");
+      if (userData.typeValue.code == "exterior_paints") {
+        if (!Object.keys(userData.floorValue).length) {
+          this.errors.floor = {
+            type: "floor",
+            message: "Floor type is required."
+          };
+        }
+        delete this.errors.bhk;
+      } else {
+        if (!Object.keys(userData.bhkValue).length) {
+          this.errors.bhk = {
+            type: "bhk",
+            message: "Bhk type is required."
+          };
+        }
+        delete this.errors.floor;
       }
 
       if (!Object.keys(userData.areaType).length) {
-        this.errors.push("Carpet/Buildup area is required.");
+        this.errors.area_type = {
+          type: "area_type",
+          message: "Carpet/Buildup area is required."
+        };
       }
 
-      if (!userData.areaValue) {
-        this.errors.push("Area in sqft is required.");
+      if (!userData.areaValue || userData.areaValue == 0) {
+        this.errors.area_value = {
+          type: "area_value",
+          message: "Area in sqft is required."
+        };
       }
 
       if (!userData.paintTypeValue.text) {
-        this.errors.push("Paint type is required.");
+        this.errors.paint_type = {
+          type: "paint_type",
+          message: "Paint type is required."
+        };
       }
 
-      if (!this.errors.length) {
+      if (!Object.keys(this.errors).length) {
+        this.errorsLength = 0;
+        return false;
+      } else {
+        this.errorsLength = Object.keys(this.errors).length;
+        return true;
+      }
+    },
+    checkPaints: function() {
+      this.paint_errors = {};
+
+      let wallsPaintProduct = this.userData.wallsPaintProduct;
+
+      let ceilingPaintProduct = this.userData.ceilingPaintProduct;
+
+      if (!Object.keys(wallsPaintProduct).length) {
+        this.paint_errors.wallpaint_error = {
+          message: "Please select a wall paint product."
+        };
+      }
+
+      if (
+        !Object.keys(ceilingPaintProduct).length &&
+        this.userData.includeCeilingPaint
+      ) {
+        this.paint_errors.ceilingpaint_error = {
+          message: "Please select a ceiling paint product."
+        };
+      }
+
+      if (!Object.keys(this.paint_errors).length) {
         return false;
       } else {
         return true;
@@ -234,31 +346,27 @@ export default {
         return null;
       }
 
-      let userData = this.$store.state.calculationData;
-
-      console.log("Data", userData);
-
       // filter with type
       let result = {
         non_ceiling: {},
         ceiling: {}
       };
 
-      let non_ceiling = filteredData[userData.typeValue.code];
+      let non_ceiling = filteredData[this.userData.typeValue.code];
 
       // filter withpaint types
       if (non_ceiling)
-        result.non_ceiling = non_ceiling[userData.paintTypeValue.key];
+        result.non_ceiling = non_ceiling[this.userData.paintTypeValue.key];
 
-      if (userData.includeCeilingPaint) {
+      if (this.userData.includeCeilingPaint) {
         let ceiling = filteredData["ceiling_paints"];
-        result.ceiling = ceiling[userData.paintTypeValue.key];
+        result.ceiling = ceiling[this.userData.paintTypeValue.key];
       }
 
       return result;
     },
     typeValue() {
-      return this.$store.state.calculationData.typeValue.code;
+      return this.userData.typeValue.code;
     }
   }
 };

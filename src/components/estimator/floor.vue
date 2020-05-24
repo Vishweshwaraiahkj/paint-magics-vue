@@ -9,14 +9,10 @@
       placeholder="--Choose a FLOOR--"
     >
       <template #search="{attributes, events}">
-        <input
-          class="vs__search"
-          :required="!floorValue"
-          v-bind="attributes"
-          v-on="events"
-        />
+        <input class="vs__search" :required="!floorValue" v-bind="attributes" v-on="events" />
       </template>
     </v-select>
+    <slot></slot>
   </div>
 </template>
 <script>

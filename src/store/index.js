@@ -17,7 +17,7 @@ const initialState = {
       text: "",
       coating: []
     },
-    areaValue: 0,
+    areaValue: null,
     areaType: {},
     wallsPaintProduct: {},
     ceilingPaintProduct: {}

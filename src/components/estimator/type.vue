@@ -22,6 +22,7 @@
         />
       </template>
     </v-select>
+    <slot></slot>
     <div class="ceiling_paint">
       <ButtonSwitch
         :key="Math.random()"

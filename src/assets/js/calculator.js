@@ -3,12 +3,11 @@ export const EstimationCalculator = data => {
     error: false,
     messages: []
   };
-  console.log("Data in JS file: ", data);
   let sqft_area = data.calculationData.areaValue
     ? data.calculationData.areaValue
     : 0;
 
-  if (!sqft_area) {
+  if (!sqft_area || sqft_area == 0) {
     errors.error = true;
     errors.messages.push("Please enter a proper Area in square foot!");
   }

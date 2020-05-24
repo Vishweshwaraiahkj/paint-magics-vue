@@ -13,25 +13,23 @@
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-      <b-carousel-slide
-        v-for="slide in slides"
-        :key="slide.id"
-        :img-src="slide.image"
-      >
+      <b-carousel-slide v-for="slide in slides" :key="slide.id" :img-src="slide.image">
         <h1>{{ slide.name }}</h1>
       </b-carousel-slide>
     </b-carousel>
 
     <p class="mt-4 d-none">
-      Slide #: {{ slide }}<br />
+      Slide #: {{ slide }}
+      <br />
       Sliding: {{ sliding }}
     </p>
-    <b-button class="estimate-button btn-square p-2" variant="warning">
-      Get Free Estimate
+    <b-button class="estimate-button btn-square p-2 animated styled_btn" variant="warning">
+      <b-link href="/estimator">Get Free Estimate</b-link>
     </b-button>
-    <b-button class="freedesign-button btn-square p-2" variant="primary">
-      Book Free Design & Color Consultation
-    </b-button>
+    <b-button
+      class="freedesign-button btn-square p-2 animated styled_btn"
+      variant="primary"
+    >Book Free Design & Color Consultation</b-button>
   </div>
 </template>
 

@@ -17,6 +17,7 @@
         />
       </template>
     </v-select>
+    <slot></slot>
   </div>
 </template>
 <script>
