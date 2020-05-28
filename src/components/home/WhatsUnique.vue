@@ -4,15 +4,25 @@
     <b-row class="text-left">
       <b-list-group class="gradient-list row">
         <b-col>
-          <b-list-group-item v-for="feature in features" :key="feature.id">
+          <b-list-group-item
+            v-for="feature in features"
+            :key="feature.id"
+            class="d-flex align-items-center"
+            :title="feature.title"
+          >
             <b-img :src="feature.image" alt="images" class="why_us_icons" />
-            &nbsp;{{ feature.title }}
+            <v-clamp autoresize :max-lines="2">{{ feature.title }}</v-clamp>
           </b-list-group-item>
         </b-col>
         <b-col>
-          <b-list-group-item v-for="feature in features_set" :key="feature.id">
+          <b-list-group-item
+            v-for="feature in features_set"
+            :key="feature.id"
+            class="d-flex align-items-center"
+            :title="feature.title"
+          >
             <b-img :src="feature.image" alt="images" class="why_us_icons" />
-            &nbsp;{{ feature.title }}
+            <v-clamp autoresize :max-lines="2">{{ feature.title }}</v-clamp>
           </b-list-group-item>
         </b-col>
       </b-list-group>
@@ -20,9 +30,12 @@
   </b-container>
 </template>
 <script>
+import VClamp from "vue-clamp";
 export default {
   name: "WhatsUnique",
-  components: {},
+  components: {
+    VClamp
+  },
   data() {
     return {
       features: [

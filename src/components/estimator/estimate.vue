@@ -1,58 +1,49 @@
-<style scoped>
-.estimateContainer {
-  margin: 2rem 5vw;
-  box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.08);
-  padding: 1rem;
-}
-
-.action-bar {
-  width: 100%;
-  z-index: 10;
-  background-color: #fff;
-}
-
-.action-btns {
-  display: flex;
-  margin-bottom: 1rem;
-}
-
-.action-btns span {
-  flex: 1;
-}
-
-.action-btns span:first-child button {
-  float: left;
-}
-
-.action-btns span:last-child button {
-  float: right;
-}
-
-.action-btns span button:focus {
-  outline: none;
-  border: none;
-}
-
-.statusIndicators {
-  display: flex;
-}
-
-.colorIndicator {
-  background-color: rgb(180, 174, 174);
-  padding: 0.25rem 1rem;
-  margin: 0.625rem 0;
-  margin-right: 0.5rem;
-  border-radius: 4px;
-}
-
-.colorIndicator.active {
-  background-color: #18d26e;
-}
-</style>
 <template>
   <div class="estimateContainer">
-    <b-form>
-      <div class="c-error" v-if="Object.keys(errors).length && errorsLength > 0">
+    <div class="statusIndicators">
+      <div
+        class="options colorIndicator wizard-step"
+        :class="{ active: optionsPage }"
+      >
+        <div class="wizard-label">
+          <fa-icon :icon="['fas', 'edit']" size="2x" />
+          <span class="wizard-title">1. Enter Details</span>
+        </div>
+      </div>
+      <fa-icon
+        :icon="['fas', 'chevron-right']"
+        size="1x"
+        :class="{ active: optionsPage }"
+      />
+      <div
+        class="paintProds colorIndicator wizard-step"
+        :class="{ active: paintProducts }"
+      >
+        <div class="wizard-label">
+          <fa-icon :icon="['fas', 'check-double']" size="2x" />
+          <span class="wizard-title">2. Select Paints</span>
+        </div>
+      </div>
+      <fa-icon
+        :icon="['fas', 'chevron-right']"
+        size="1x"
+        :class="{ active: paintProducts }"
+      />
+      <div
+        class="results colorIndicator wizard-step"
+        :class="{ active: resultsPage }"
+      >
+        <div class="wizard-label">
+          <fa-icon :icon="['fas', 'poll-h']" size="2x" />
+          <span class="wizard-title">3. Review Results</span>
+        </div>
+      </div>
+    </div>
+    <b-form class="estimator-form">
+      <div
+        class="c-error"
+        v-if="Object.keys(errors).length && errorsLength > 0"
+      >
         <b>Please correct the following error(s):</b>
       </div>
 
@@ -76,10 +67,11 @@
           :bhks="estimationData.bhks"
         >
           <ErrorMessage
-            v-if="(errors.bhk && !Object.keys(userData.bhkValue).length)"
+            v-if="errors.bhk && !Object.keys(userData.bhkValue).length"
             :errorMessage="errors.bhk.message"
           />
         </Bhk>
+
         <Floor
           v-if="estimationData.floors && typeValue == 'exterior_paints'"
           :floors="estimationData.floors"
@@ -90,13 +82,24 @@
           />
         </Floor>
 
-        <Area v-if="estimationData.area_type" :area_type="estimationData.area_type" />
+        <Area
+          v-if="estimationData.area_type"
+          :area_type="estimationData.area_type"
+        />
+
         <ErrorMessage
-          v-if="errors.area_value && (!userData.areaValue || userData.areaValue == 0)"
+          v-if="
+            errors.area_value &&
+              (!userData.areaValue || userData.areaValue == 0)
+          "
           :errorMessage="errors.area_value.message"
         />
 
-        <Paint v-if="estimationData.painttypes" :painttypes="estimationData.painttypes" />
+        <Paint
+          v-if="estimationData.painttypes"
+          :painttypes="estimationData.painttypes"
+        />
+
         <ErrorMessage
           v-if="errors.paint_type && !userData.paintTypeValue.text"
           :errorMessage="errors.paint_type.message"
@@ -104,7 +107,11 @@
       </div>
 
       <div v-if="paintProducts" class="paintProducts">
-        <PaintProducts v-if="filteredPaintproducts" :paintproducts="filteredPaintproducts">
+        <PaintProducts
+          v-if="filteredPaintproducts"
+          :paintproducts="filteredPaintproducts"
+          :checkErrors="checkPaints"
+        >
           <template v-slot:wallpaintError>
             <ErrorMessage
               v-if="paint_errors.wallpaint_error"
@@ -129,32 +136,30 @@
 
       <div class="action-bar">
         <div class="action-btns">
-          <!-- <span>
+          <span>
             <b-button
+              v-if="PreviousBtnName"
               variant="light"
               :disabled="!previousPage"
               @click="navigateTo(previousPage, 'prev')"
-              class="px-5"
+              class="px-5 font-weight-bold text-uppercase"
             >
-              <fa-icon :icon="['fas', 'arrow-left']" size="2x" />
+              <fa-icon :icon="['fas', 'arrow-left']" size="1x" class="mr-3" />
+              {{ PreviousBtnName }}
             </b-button>
-          </span>-->
+          </span>
           <span>
             <b-button
-              variant="light"
+              v-if="NextBtnName"
+              variant="primary"
               :disabled="!nextPage"
               @click="navigateTo(nextPage, 'next')"
-              class="px-5 font-weight-bold"
+              class="px-5 font-weight-bold text-uppercase"
             >
-              {{ BtnName }}
+              {{ NextBtnName }}
               <fa-icon :icon="['fas', 'arrow-right']" size="1x" class="ml-3" />
             </b-button>
           </span>
-        </div>
-        <div class="statusIndicators">
-          <span class="options colorIndicator" :class="{ active: optionsPage }"></span>
-          <span class="paintProds colorIndicator" :class="{ active: paintProducts }"></span>
-          <span class="results colorIndicator" :class="{ active: resultsPage }"></span>
         </div>
       </div>
     </b-form>
@@ -197,24 +202,37 @@ export default {
       errorsLength: 0,
       paint_errors: {},
       userData: this.$store.state.calculationData,
-      BtnName: "Select Paint"
+      NextBtnName: "Select Paint(s)",
+      PreviousBtnName: ""
     };
   },
   methods: {
     navigateTo(pageType, action) {
       if (action == "next") {
         if (pageType == "paintProducts") {
-          this.BtnName = "Finish";
           if (this.checkForm()) return;
+          this.NextBtnName = "Finish";
+          this.PreviousBtnName = "Options";
         }
 
         if (pageType == "resultsPage") {
           if (this.checkPaints()) return;
+          this.PreviousBtnName = "Select Paint(s)";
+          this.NextBtnName = "";
         }
       }
 
       if (action == "prev") {
         this.$store.dispatch("loadInitialState");
+        if (pageType == "paintProducts") {
+          this.NextBtnName = "Finish";
+          this.PreviousBtnName = "Options";
+        }
+
+        if (pageType == "optionsPage") {
+          this.PreviousBtnName = "";
+          this.NextBtnName = "Select Paint(s)";
+        }
       }
 
       if (pageType == "optionsPage") {

@@ -6,7 +6,7 @@
     <div class="homeBox" id="servieces">
       <OurServices />
     </div>
-    <div class="homeBox">
+    <div class="homeBox" id="whats_unique">
       <WhatsUnique />
     </div>
     <div class="homeBox" id="how_it_works">

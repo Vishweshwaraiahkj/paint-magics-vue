@@ -30,14 +30,46 @@
 .style-chooser .vs__dropdown-toggle,
 .style-chooser .vs__dropdown-menu,
 .style-chooser input {
-  background    : #dcf3e7;
-  border        : none;
-  color         : #394066;
-  text-transform: lowercase;
-  font-variant  : small-caps;
+  background-color  : #f3f6f9;
+  border-color      : #f3f6f9;
+  color             : #464e5f;
+  -webkit-transition: color .15s ease, background-color .15s ease, border-color .15s ease, -webkit-box-shadow .15s ease;
+  transition        : color .15s ease, background-color .15s ease, border-color .15s ease, -webkit-box-shadow .15s ease;
+  transition        : color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+  transition        : color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, -webkit-box-shadow .15s ease;
+  text-transform    : lowercase;
+  font-variant      : small-caps;
 }
 
 .style-chooser .vs__clear,
 .style-chooser .vs__open-indicator {
   fill: #394066;
+}
+
+// design of input boxes
+
+.style-chooser input::-moz-placeholder {
+  color  : #b5b5c3;
+  opacity: 1
+}
+
+.style-chooser input:-ms-input-placeholder {
+  color: #b5b5c3
+}
+
+.style-chooser input::-webkit-input-placeholder {
+  color: #b5b5c3
+}
+
+.style-chooser input.active,
+.style-chooser input.focus,
+.style-chooser input:active,
+.style-chooser input:focus {
+  background-color  : #f3f6f9;
+  border-color      : #f3f6f9;
+  color             : #464e5f;
+  -webkit-transition: color .15s ease, background-color .15s ease, border-color .15s ease, -webkit-box-shadow .15s ease;
+  transition        : color .15s ease, background-color .15s ease, border-color .15s ease, -webkit-box-shadow .15s ease;
+  transition        : color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+  transition        : color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, -webkit-box-shadow .15s ease
 }

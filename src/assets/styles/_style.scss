@@ -67,7 +67,6 @@
 }
 
 .homeTitles {
-  width         : 30%;
   margin        : auto;
   font-weight   : 600;
   text-transform: uppercase;
@@ -106,11 +105,11 @@
 }
 
 .homeBox:nth-child(odd) {
-  background: #ddd;
+  background: #ffffff;
 }
 
 .homeBox:nth-child(even) {
-  background: #fff;
+  background: #eef0f8;
 }
 
 /*--------------------------------------------------------------
@@ -279,7 +278,6 @@
   counter-reset : gradient-counter;
   list-style    : none;
   margin        : 0 0 1.75rem 0;
-  padding-left  : 1rem;
   flex-direction: row;
   flex          : 1;
 }
@@ -301,32 +299,52 @@
 }
 
 .service_card {
-  width     : 23%;
-  margin    : 1%;
+  margin    : 3% 0;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 
   .card-body {
-
-    padding: 0 1rem;
+    transition   : .5s ease;
+    opacity      : 0;
+    position     : absolute;
+    top          : 50%;
+    left         : 50%;
+    transform    : translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align   : center;
+    padding      : 0 1rem;
 
     h5.card_title {
-      margin        : 1em 0 0.5em 0;
-      font-weight   : 600;
-      text-transform: uppercase;
-      position      : relative;
-      font-size     : 26px;
-      line-height   : 26px;
-      padding       : 0.625rem 1rem;
-      color         : #000000;
-      text-shadow   : 3px 3px 2px #bdc5aa, 2px 2px 2px #f9eaea;
+      margin          : 0.5em 0 0 0;
+      font-weight     : 600;
+      text-transform  : uppercase;
+      position        : relative;
+      font-size       : 26px;
+      line-height     : 26px;
+      padding         : 0.625rem 1rem;
+      background-color: #4CAF50;
+      color           : white;
     }
   }
 
-}
+  img {
+    padding            : 0;
+    border             : 1rem solid #ffffff;
+    opacity            : 1;
+    display            : block;
+    width              : 100%;
+    height             : auto;
+    transition         : .5s ease;
+    backface-visibility: hidden;
+  }
 
-.service_card img {
-  padding: 0;
-  border : 1rem solid #ffffff;
+  &:hover img {
+    opacity: 0.3;
+  }
+
+  &:hover .card-body {
+    opacity: 1;
+  }
+
 }
 
 .how_box {
@@ -334,24 +352,32 @@
 }
 
 .how_card {
-  width        : 23%;
-  margin       : 1%;
-  border       : 1px solid #ddd;
+  margin       : 3% 0;
   border-radius: 0;
-  box-shadow   : 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-}
+  box-shadow   : 0 0 30px 0 rgba(82, 63, 105, .05);
+  border       : 0;
 
-.how_card img {
-  padding   : 0.625rem;
-  width     : 150px;
-  height    : 150px;
-  text-align: center;
-  margin    : auto;
+  img {
+    padding      : 0.625rem;
+    width        : 150px;
+    height       : 150px;
+    text-align   : center;
+    margin       : auto;
+    border-radius: 50%;
+    background   : #0000002b;
+  }
 }
 
 .why_us_icons {
   width       : 3rem;
   margin-right: 1rem;
+}
+
+#servieces,
+#whats_unique,
+#how_it_works,
+#enquire_us {
+  padding: 0 4rem;
 }
 
 #headerBox .navbar-nav .nav-link,
@@ -492,6 +518,7 @@
     border-left  : transparent;
     border-right : transparent;
     white-space  : nowrap;
+    max-width    : 90%;
   }
 
   &.styled_btn:before,
@@ -534,5 +561,243 @@
     color           : inherit;
     text-decoration : none;
     background-color: transparent;
+  }
+}
+
+.error.error-404 {
+  .error-title {
+    font-size: 8rem;
+  }
+}
+
+.flex-root {
+  flex: 1;
+}
+
+.error_pages {
+  margin-top: -75px;
+}
+
+.bgi-position-center {
+  background-position: 50%;
+}
+
+.bgi-size-cover {
+  background-size: cover;
+  height         : 100vh;
+}
+
+.flex-row-fluid {
+  -webkit-box-flex: 1;
+  flex            : 1 auto;
+  -ms-flex        : 1 0 0px;
+  min-width       : 0;
+}
+
+.display-4 {
+  font-size: 2.5rem;
+}
+
+.font-weight-boldest {
+  font-weight: 900;
+}
+
+.estimator-form {
+  width : 75%;
+  margin: auto;
+}
+
+.wizard-step {
+  display          : -webkit-box;
+  display          : -ms-flexbox;
+  display          : flex;
+  -webkit-box-align: center;
+  -ms-flex-align   : center;
+  align-items      : center;
+
+  .wizard-label {
+    margin-left : 3.5rem;
+    margin-right: 3.5rem;
+
+    svg {
+      display        : flex;
+      justify-content: center;
+      margin         : auto;
+      color          : #b5b5c3;
+    }
+
+    .wizard-title {
+      font-size  : 1.1rem;
+      font-weight: 500;
+      margin-top : .75rem;
+      display    : block;
+    }
+  }
+}
+
+// Paint products page css
+
+.paint_product_tabs,
+.optionsPage,
+.resultsPage {
+  color     : green;
+  padding   : 1rem;
+  margin    : 1rem 0;
+  box-shadow: 5px 5px 30px 5px rgba(82, 63, 105, 0.05);
+  border    : 0;
+  background: #ffffff;
+}
+
+.products_details {
+  display        : flex;
+  justify-content: space-between;
+
+  &>div {
+    box-shadow: 0px 0px 20px 10px #ceeaea;
+    margin    : 1rem;
+    padding   : 1rem;
+    width     : 50%;
+  }
+
+  label {
+    font-weight  : bold;
+    margin-right : 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+.results_header {
+  display        : flex;
+  justify-content: center;
+  padding-top    : 3rem;
+  padding-bottom : 2rem;
+  font-weight    : bolder;
+}
+
+.selected_product {
+  padding   : 1rem;
+  background: green;
+  color     : #fff;
+  margin    : 1rem 0;
+
+  label {
+    margin-bottom: 0;
+    margin-right : 0.625rem;
+  }
+}
+
+.paint_product_tabs {
+
+  .title-flex {
+    display: flex;
+
+    .title-span {
+      text-align: justify;
+      flex      : 1;
+    }
+  }
+
+  .card-deck .card {
+    max-width    : calc(25% - 30px);
+    min-width    : calc(25% - 30px);
+    margin-bottom: 1rem;
+  }
+
+  .price_box {
+    display      : flex;
+    align-content: flex-start;
+  }
+
+  .paint_product_box {
+    background: brown;
+    font-size : 12px;
+
+    &.active {
+      .card-body {
+        background: rgb(233, 113, 133);
+      }
+
+      &:before {
+        content    : "\2713";
+        line-height: 1em;
+        width      : 1em;
+        height     : 1em;
+        color      : #999;
+        position   : absolute;
+        right      : 0;
+      }
+    }
+  }
+}
+
+// Estimator page design css
+
+.estimateContainer {
+  margin    : 2rem 5vw;
+  box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.08);
+  padding   : 1rem;
+}
+
+.action-bar {
+  width           : 100%;
+  z-index         : 10;
+  background-color: #fff;
+  border-top      : 1px solid #ddd;
+  margin-top      : 2.5rem;
+  padding-top     : 2rem;
+}
+
+.action-btns {
+  display      : flex;
+  margin-bottom: 1rem;
+
+  span {
+    flex: 1;
+
+    &:first-child button {
+      float: left;
+    }
+
+    &:last-child button {
+      float: right;
+    }
+
+    button:focus {
+      outline: none;
+      border : none;
+    }
+  }
+}
+
+.statusIndicators {
+  display        : flex;
+  padding        : 1rem;
+  border-bottom  : 1px solid #ddd;
+  margin-bottom  : 2rem;
+  justify-content: space-evenly;
+  align-items    : center;
+
+  svg {
+    color: #b5b5c3;
+
+    &.active {
+      color: #4971e4;
+    }
+  }
+}
+
+.colorIndicator {
+  color        : #b5b5c3;
+  padding      : 0.25rem 1rem;
+  margin       : 0.625rem 0;
+  margin-right : 0.5rem;
+  border-radius: 4px;
+
+  &.active {
+    color: #4971e4;
+
+    svg {
+      color: #4971e4;
+    }
   }
 }

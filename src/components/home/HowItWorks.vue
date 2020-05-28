@@ -2,12 +2,14 @@
   <b-container fluid class="text-center my-3 py-2">
     <h1 class="homeTitles">How It Works?</h1>
     <b-row class="text-center how_box">
-      <b-card v-for="slider in slides" :key="slider.id" class="how_card">
-        <b-card-img bottom :src="slider.image"></b-card-img>
-        <h5 class="m-2">
-          <v-clamp autoresize :max-lines="1">{{ slider.name }}</v-clamp>
-        </h5>
-      </b-card>
+      <b-col v-for="slider in slides" :key="slider.id" sm="6" md="3" lg="3">
+        <b-card class="how_card">
+          <b-card-img bottom :src="slider.image"></b-card-img>
+          <h5 class="m-2">
+            <v-clamp autoresize :max-lines="1">{{ slider.name }}</v-clamp>
+          </h5>
+        </b-card>
+      </b-col>
     </b-row>
   </b-container>
 </template>

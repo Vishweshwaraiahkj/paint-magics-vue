@@ -9,63 +9,66 @@
       </ul>
     </div>
     <div v-else>
-      <h1>Your Results:</h1>
-      <div v-if="Object.keys(wallsPaintProduct).length !== 0">
-        <h2>Wall Paint Details</h2>
-        <div>
-          <label>Wall Paint Product:</label>
-          <span>{{ wallsPaintProduct.product }}</span>
-        </div>
-        <div>
-          <label>Wall Paint Quality:</label>
+      <div class="products_details">
+        <div v-if="Object.keys(wallsPaintProduct).length !== 0">
+          <h2>Wall Paint Details</h2>
+          <hr />
           <div>
-            <label>Finish:</label>
-            <span>{{ wallsPaintProduct.quality.finish }}</span>
+            <label>Wall Paint Product:</label>
+            <span>{{ wallsPaintProduct.product }}</span>
           </div>
           <div>
-            <label>Washability:</label>
-            <span>{{ wallsPaintProduct.quality.washability }}</span>
+            <label>Wall Paint Quality:</label>
+            <div>
+              <label>Finish:</label>
+              <span>{{ wallsPaintProduct.quality.finish }}</span>
+            </div>
+            <div>
+              <label>Washability:</label>
+              <span>{{ wallsPaintProduct.quality.washability }}</span>
+            </div>
+            <div>
+              <label>Durability:</label>
+              <span>{{ wallsPaintProduct.quality.durability }}</span>
+            </div>
           </div>
           <div>
-            <label>Durability:</label>
-            <span>{{ wallsPaintProduct.quality.durability }}</span>
+            <label>Wall Paint Base Rate Per Each:</label>
+            <span>{{ wallsPaintProduct.rate }}</span>
           </div>
+          <hr />
         </div>
-        <div>
-          <label>Wall Paint Base Rate Per Each:</label>
-          <span>{{ wallsPaintProduct.rate }}</span>
+        <div v-if="Object.keys(ceilingPaintProduct).length !== 0">
+          <h2>Ceiling Paint Details</h2>
+          <hr />
+          <div>
+            <label>Ceiling Paint Product:</label>
+            <span>{{ ceilingPaintProduct.product }}</span>
+          </div>
+          <div>
+            <label>Ceiling Paint Quality:</label>
+            <div>
+              <label>Finish:</label>
+              <span>{{ ceilingPaintProduct.quality.finish }}</span>
+            </div>
+            <div>
+              <label>Washability:</label>
+              <span>{{ ceilingPaintProduct.quality.washability }}</span>
+            </div>
+            <div>
+              <label>Durability:</label>
+              <span>{{ ceilingPaintProduct.quality.durability }}</span>
+            </div>
+          </div>
+          <div>
+            <label>Ceiling Paint Base Rate Per Each:</label>
+            <span>{{ ceilingPaintProduct.rate }}</span>
+          </div>
+          <hr />
         </div>
-        <hr />
       </div>
-      <div v-if="Object.keys(ceilingPaintProduct).length !== 0">
-        <h2>Ceiling Paint Details</h2>
-        <div>
-          <label>Ceiling Paint Product:</label>
-          <span>{{ ceilingPaintProduct.product }}</span>
-        </div>
-        <div>
-          <label>Ceiling Paint Quality:</label>
-          <div>
-            <label>Finish:</label>
-            <span>{{ ceilingPaintProduct.quality.finish }}</span>
-          </div>
-          <div>
-            <label>Washability:</label>
-            <span>{{ ceilingPaintProduct.quality.washability }}</span>
-          </div>
-          <div>
-            <label>Durability:</label>
-            <span>{{ ceilingPaintProduct.quality.durability }}</span>
-          </div>
-        </div>
-        <div>
-          <label>Ceiling Paint Base Rate Per Each:</label>
-          <span>{{ ceilingPaintProduct.rate }}</span>
-        </div>
-        <hr />
-      </div>
-      <h1>
-        <label>Final Price:</label>
+      <h1 class="results_header">
+        <label class="mr-3">Final Price:</label>
         {{ finalRes }}
       </h1>
     </div>
@@ -107,7 +110,13 @@ export default {
     if (result.error) {
       this.errors = result.messages;
     } else {
-      this.finalRes = result.total;
+      let theResult = result.total.toLocaleString("en-IN", {
+        maximumFractionDigits: 2,
+        style: "currency",
+        currency: "INR"
+      });
+
+      this.finalRes = theResult;
     }
   }
 };

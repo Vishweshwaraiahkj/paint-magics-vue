@@ -1,65 +1,15 @@
-<style lang="scss" scoped>
-.paint_product_tabs {
-  color: green;
-  background: #f8f4ed;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  margin: 1rem 0;
-
-  .title-flex {
-    display: flex;
-
-    .title-span {
-      text-align: justify;
-      flex: 1;
-    }
-  }
-
-  .card-deck .card {
-    max-width: calc(25% - 30px);
-    min-width: calc(25% - 30px);
-    margin-bottom: 1rem;
-  }
-
-  .price_box {
-    display: flex;
-    align-content: flex-start;
-  }
-
-  .paint_product_box {
-    background: brown;
-    font-size: 12px;
-    &.active {
-      .card-body {
-        background: rgb(233, 113, 133);
-      }
-
-      &:before {
-        content: "\2713";
-        line-height: 1em;
-        width: 1em;
-        height: 1em;
-        color: #999;
-        position: absolute;
-        right: 0;
-      }
-    }
-  }
-}
-</style>
-
 <template>
   <div class="paint_products">
-    <h1>Select Paint Product for walls</h1>
     <div class="paint_product_tabs">
       <h3 v-if="Object.keys(paintproducts.non_ceiling).length">Wall Paints</h3>
+      <hr />
       <div
         v-if="
           Object.keys(wallsPaintProduct).length && wallsPaintProduct.product
         "
         class="selected_product"
       >
-        <label>Wall Paint:</label>
+        <label>Selected Wall Paint:</label>
         <span>{{ wallsPaintProduct.product }}</span>
       </div>
       <b-tabs v-if="Object.keys(paintproducts.non_ceiling).length">
@@ -67,7 +17,7 @@
           <template v-slot:title>
             <span>Economy</span>
           </template>
-          <div class="p-3">
+          <div class="py-3">
             <b-card-group v-if="paintproducts.non_ceiling.economy" columns>
               <b-card
                 v-for="(economy, index) in paintproducts.non_ceiling.economy"
@@ -83,7 +33,9 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="economy.product">
-                    <v-clamp autoresize :max-lines="1">{{ economy.product }}</v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{
+                      economy.product
+                    }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
@@ -113,7 +65,7 @@
           <template v-slot:title>
             <span>Standard</span>
           </template>
-          <div class="p-3">
+          <div class="py-3">
             <b-card-group v-if="paintproducts.non_ceiling.standard" columns>
               <b-card
                 v-for="(standard, index) in paintproducts.non_ceiling.standard"
@@ -131,7 +83,9 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="standard.product">
-                    <v-clamp autoresize :max-lines="1">{{ standard.product }}</v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{
+                      standard.product
+                    }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
@@ -161,7 +115,7 @@
           <template v-slot:title>
             <span>Premium</span>
           </template>
-          <div class="p-3">
+          <div class="py-3">
             <b-card-group v-if="paintproducts.non_ceiling.premium" columns>
               <b-card
                 v-for="(premium, index) in paintproducts.non_ceiling.premium"
@@ -177,7 +131,9 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="premium.product">
-                    <v-clamp autoresize :max-lines="1">{{ premium.product }}</v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{
+                      premium.product
+                    }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
@@ -207,13 +163,14 @@
       <div v-else>No products! Please check with our support team.</div>
       <slot name="wallpaintError"></slot>
       <h3 v-if="Object.keys(paintproducts.ceiling).length">Ceiling Paints</h3>
+      <hr />
       <div
         v-if="
           Object.keys(ceilingPaintProduct).length && ceilingPaintProduct.product
         "
         class="selected_product"
       >
-        <label>Ceiling Paint:</label>
+        <label>Selected Ceiling Paint:</label>
         <span>{{ ceilingPaintProduct.product }}</span>
       </div>
       <b-tabs v-if="Object.keys(paintproducts.ceiling).length">
@@ -221,7 +178,7 @@
           <template v-slot:title>
             <span>Economy</span>
           </template>
-          <div class="p-3">
+          <div class="py-3">
             <b-card-group v-if="paintproducts.ceiling.economy" columns>
               <b-card
                 v-for="(economy, index) in paintproducts.ceiling.economy"
@@ -241,7 +198,9 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="economy.product">
-                    <v-clamp autoresize :max-lines="1">{{ economy.product }}</v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{
+                      economy.product
+                    }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
@@ -271,7 +230,7 @@
           <template v-slot:title>
             <span>Standard</span>
           </template>
-          <div class="p-3">
+          <div class="py-3">
             <b-card-group v-if="paintproducts.ceiling.standard" columns>
               <b-card
                 v-for="(standard, index) in paintproducts.ceiling.standard"
@@ -291,7 +250,9 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="standard.product">
-                    <v-clamp autoresize :max-lines="1">{{ standard.product }}</v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{
+                      standard.product
+                    }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
@@ -321,7 +282,7 @@
           <template v-slot:title>
             <span>Premium</span>
           </template>
-          <div class="p-3">
+          <div class="py-3">
             <b-card-group v-if="paintproducts.ceiling.premium" columns>
               <b-card
                 v-for="(premium, index) in paintproducts.ceiling.premium"
@@ -341,7 +302,9 @@
               >
                 <b-card-title class="title-flex">
                   <span class="title-span" :title="premium.product">
-                    <v-clamp autoresize :max-lines="1">{{ premium.product }}</v-clamp>
+                    <v-clamp autoresize :max-lines="1">{{
+                      premium.product
+                    }}</v-clamp>
                   </span>
                 </b-card-title>
                 <div class="price_box">
@@ -376,7 +339,7 @@
 import VClamp from "vue-clamp";
 export default {
   name: "PaintProducts",
-  props: ["paintproducts"],
+  props: ["paintproducts", "checkErrors"],
   components: {
     VClamp
   },
@@ -390,10 +353,12 @@ export default {
     selectedPaintProduct(object, index, type) {
       this.activeWallProductId = type + "_" + index;
       this.wallsPaintProduct = object;
+      this.checkErrors();
     },
     selectedCeilingProduct(object, index, type) {
       this.activeCeilingProductId = type + "_" + index;
       this.ceilingPaintProduct = object;
+      this.checkErrors();
     }
   },
   computed: {

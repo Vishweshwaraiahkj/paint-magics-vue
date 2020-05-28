@@ -2,17 +2,13 @@
   <b-container fluid class="text-center my-3 py-2">
     <h1 class="homeTitles">Our Services</h1>
     <b-row class="text-left">
-      <b-card
-        v-for="slide in slides"
-        :img-src="slide.image"
-        img-bottom
-        :key="slide.id"
-        class="service_card"
-      >
-        <h5 class="card_title">
-          <v-clamp autoresize :max-lines="1">{{ slide.name }}</v-clamp>
-        </h5>
-      </b-card>
+      <b-col v-for="slide in slides" :key="slide.id" sm="6" md="3" lg="3">
+        <b-card :img-src="slide.image" img-bottom class="service_card">
+          <h5 class="card_title">
+            <v-clamp autoresize :max-lines="1">{{ slide.name }}</v-clamp>
+          </h5>
+        </b-card>
+      </b-col>
     </b-row>
   </b-container>
 </template>

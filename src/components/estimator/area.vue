@@ -5,10 +5,25 @@
   width: 100%;
   line-height: 2;
   padding: 0 0.625rem;
+  font-size: 1em;
+  border: 1px solid transparent;
+  border-left: none;
+  outline: none;
+  margin: 4px 0 0 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  max-width: 100%;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 input.inputstyle:focus {
   outline: none;
+}
+
+input.inputstyle::placeholder {
+  color: #000;
 }
 
 .area_type {

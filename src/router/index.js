@@ -2,8 +2,23 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
 import Estimator from "@/views/Estimator.vue";
+import Error_404 from "@/components/errors/Error_404.vue";
 
 Vue.use(VueRouter);
+
+const commonMeta = {
+  title: "Error - Paint Magics",
+  metaTags: [
+    {
+      name: "description",
+      content: "The Paint Magics."
+    },
+    {
+      property: "og:description",
+      content: "The Paint Magics."
+    }
+  ]
+};
 
 const routes = [
   {
@@ -50,6 +65,12 @@ const routes = [
         }
       ]
     }
+  },
+  {
+    path: "*",
+    name: "error_404",
+    component: Error_404,
+    meta: commonMeta
   }
 ];
 

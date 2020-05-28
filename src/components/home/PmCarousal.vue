@@ -13,8 +13,14 @@
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-      <b-carousel-slide v-for="slide in slides" :key="slide.id" :img-src="slide.image">
-        <h1>{{ slide.name }}</h1>
+      <b-carousel-slide
+        v-for="slide in slides"
+        :key="slide.id"
+        :img-src="slide.image"
+      >
+        <h1>
+          <v-clamp autoresize :max-lines="1">{{ slide.name }}</v-clamp>
+        </h1>
       </b-carousel-slide>
     </b-carousel>
 
@@ -23,20 +29,30 @@
       <br />
       Sliding: {{ sliding }}
     </p>
-    <b-button class="estimate-button btn-square p-2 animated styled_btn" variant="warning">
+    <b-button
+      class="estimate-button btn-square p-2 animated styled_btn"
+      variant="warning"
+    >
       <b-link href="/estimator">Get Free Estimate</b-link>
     </b-button>
     <b-button
       class="freedesign-button btn-square p-2 animated styled_btn"
       variant="primary"
-    >Book Free Design & Color Consultation</b-button>
+    >
+      <v-clamp autoresize :max-lines="1"
+        >Book Free Design & Color Consultation</v-clamp
+      >
+    </b-button>
   </div>
 </template>
 
 <script>
+import VClamp from "vue-clamp";
 export default {
   name: "PmCarousal",
-  components: {},
+  components: {
+    VClamp
+  },
   data() {
     return {
       slide: 0,
