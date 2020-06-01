@@ -11,14 +11,14 @@
     <div v-else>
       <div class="products_details">
         <div v-if="Object.keys(wallsPaintProduct).length !== 0">
-          <h2>Wall Paint Details</h2>
+          <h2 class="results_title">Wall Paint Details</h2>
           <hr />
           <div>
-            <label>Wall Paint Product:</label>
+            <h4 class="results_sub_title">Wall Paint Product</h4>
             <span>{{ wallsPaintProduct.product }}</span>
           </div>
           <div>
-            <label>Wall Paint Quality:</label>
+            <h4 class="results_sub_title">Wall Paint Quality</h4>
             <div>
               <label>Finish:</label>
               <span>{{ wallsPaintProduct.quality.finish }}</span>
@@ -32,21 +32,21 @@
               <span>{{ wallsPaintProduct.quality.durability }}</span>
             </div>
           </div>
-          <div>
-            <label>Wall Paint Base Rate Per Each:</label>
-            <span>{{ wallsPaintProduct.rate }}</span>
-          </div>
           <hr />
+          <div class="rate_box">
+            <label>Wall Paint Base Rate/Unit:</label>
+            <span>{{ addRupeeSign(wallsPaintProduct.rate) }}</span>
+          </div>
         </div>
         <div v-if="Object.keys(ceilingPaintProduct).length !== 0">
-          <h2>Ceiling Paint Details</h2>
+          <h2 class="results_title">Ceiling Paint Details</h2>
           <hr />
           <div>
-            <label>Ceiling Paint Product:</label>
+            <h4 class="results_sub_title">Ceiling Paint Product</h4>
             <span>{{ ceilingPaintProduct.product }}</span>
           </div>
           <div>
-            <label>Ceiling Paint Quality:</label>
+            <h4 class="results_sub_title">Ceiling Paint Quality</h4>
             <div>
               <label>Finish:</label>
               <span>{{ ceilingPaintProduct.quality.finish }}</span>
@@ -60,11 +60,11 @@
               <span>{{ ceilingPaintProduct.quality.durability }}</span>
             </div>
           </div>
-          <div>
-            <label>Ceiling Paint Base Rate Per Each:</label>
-            <span>{{ ceilingPaintProduct.rate }}</span>
-          </div>
           <hr />
+          <div class="rate_box">
+            <label>Ceiling Paint Base Rate/Unit:</label>
+            <span>{{ addRupeeSign(ceilingPaintProduct.rate) }}</span>
+          </div>
         </div>
       </div>
       <h1 class="results_header">
@@ -87,7 +87,17 @@ export default {
       errors: []
     };
   },
-  methods: {},
+  methods: {
+    addRupeeSign(price) {
+      let theResult = price.toLocaleString("en-IN", {
+        maximumFractionDigits: 2,
+        style: "currency",
+        currency: "INR"
+      });
+
+      return theResult;
+    }
+  },
   computed: {
     wallsPaintProduct: {
       get() {

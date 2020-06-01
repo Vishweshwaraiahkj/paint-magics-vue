@@ -90,7 +90,26 @@
       </div>
       <div class="credits">
         Designed by
-        <a href="/">&nbsp;Masters</a>
+        <a class="dev_card" @click="devCard = true">&nbsp;Masters</a>
+        <!-- use the modal component, pass in the prop -->
+        <DevCard v-if="devCard" @close="devCard = false" class="creditsModal">
+          <!-- you can use custom content here to overwrite default content -->
+          <h3 slot="header">Developer Details</h3>
+          <div slot="body">
+            <div class="dev_name">
+              <label>Dev Name: </label>
+              <span>Vishweshwarayya K J</span>
+            </div>
+            <div class="dev_contact">
+              <label>Contact Number: </label>
+              <span>
+                {{ showNumber ? "+91-7353333573" : "XXXXXXXXXXXX" }}
+                <fa-icon class="show_num" @click="revealNumber" icon="eye" />
+              </span>
+            </div>
+          </div>
+          <div slot="footer"></div>
+        </DevCard>
       </div>
     </div>
   </footer>
@@ -98,10 +117,12 @@
 
 <script>
 import VClamp from "vue-clamp";
+import DevCard from "@/components/dev_card/DevCard.vue";
 export default {
   name: "CommonFooter",
   components: {
-    VClamp
+    VClamp,
+    DevCard
   },
   data() {
     return {
@@ -117,8 +138,15 @@ export default {
       we understand the happiness of every Living Walls at your
       house. We are committed to delivering any projects on time as
       we understand each project, we begin has specific needs and a
-      dream to live!!!`
+      dream to live!!!`,
+      devCard: false,
+      showNumber: false
     };
+  },
+  methods: {
+    revealNumber() {
+      this.showNumber = !this.showNumber;
+    }
   }
 };
 </script>

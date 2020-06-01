@@ -28,6 +28,8 @@ input.inputstyle::placeholder {
 
 .area_type {
   display: flex;
+  text-transform: lowercase;
+  font-variant: small-caps;
 
   .buildup_area {
     margin-right: 1rem;
@@ -56,6 +58,7 @@ input.inputstyle::placeholder {
       placeholder="Carpet Area / Build up area"
       v-model="areaValue"
     />
+    <slot></slot>
   </div>
 </template>
 <script>

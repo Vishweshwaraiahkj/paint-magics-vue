@@ -5,7 +5,7 @@
       :clearable="false"
       v-model="paintTypeValue"
       label="type"
-      class="style-chooser"
+      class="style-chooser paint_selector"
       placeholder="Choose a Paint type"
     >
       <template slot="option" slot-scope="option">
@@ -22,6 +22,7 @@
         </div>
       </template>
     </v-select>
+    <slot></slot>
   </div>
 </template>
 <script>

@@ -2,6 +2,12 @@
 .label_medium {
   font-size: 1rem;
 }
+
+.ceiling_paint {
+  display: flex;
+  text-transform: lowercase;
+  font-variant: small-caps;
+}
 </style>
 <template>
   <div class="typeSelector">

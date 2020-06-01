@@ -3,6 +3,7 @@
     <div class="paint_product_tabs">
       <h3 v-if="Object.keys(paintproducts.non_ceiling).length">Wall Paints</h3>
       <hr />
+      <slot name="wallpaintError"></slot>
       <div
         v-if="
           Object.keys(wallsPaintProduct).length && wallsPaintProduct.product
@@ -12,17 +13,22 @@
         <label>Selected Wall Paint:</label>
         <span>{{ wallsPaintProduct.product }}</span>
       </div>
-      <b-tabs v-if="Object.keys(paintproducts.non_ceiling).length">
+      <b-tabs
+        v-if="Object.keys(paintproducts.non_ceiling).length"
+        vertical
+        pills
+        card
+      >
         <b-tab active>
           <template v-slot:title>
             <span>Economy</span>
           </template>
-          <div class="py-3">
+          <div>
             <b-card-group v-if="paintproducts.non_ceiling.economy" columns>
               <b-card
                 v-for="(economy, index) in paintproducts.non_ceiling.economy"
                 :key="index"
-                bg-variant="light"
+                bg-variant="white"
                 text-variant="dark"
                 :id="'wall_economy_' + index"
                 class="paint_product_box"
@@ -40,10 +46,12 @@
                 </b-card-title>
                 <div class="price_box">
                   <label>Price:</label>
-                  <fa-icon :icon="['fas', 'rupee-sign']" />
-                  <span>{{ economy.rate }}</span>
+                  <div>
+                    <fa-icon :icon="['fas', 'rupee-sign']" />
+                    <span>{{ economy.rate }}</span>
+                  </div>
                 </div>
-                <b-card-text class="d-flex flex-column">
+                <b-card-text class="quality_details">
                   <div>
                     <label>Finish:</label>
                     <span>{{ economy.quality.finish }}</span>
@@ -65,12 +73,12 @@
           <template v-slot:title>
             <span>Standard</span>
           </template>
-          <div class="py-3">
+          <div>
             <b-card-group v-if="paintproducts.non_ceiling.standard" columns>
               <b-card
                 v-for="(standard, index) in paintproducts.non_ceiling.standard"
                 :key="index"
-                bg-variant="light"
+                bg-variant="white"
                 text-variant="dark"
                 :id="'wall_standard_' + index"
                 class="paint_product_box"
@@ -90,10 +98,12 @@
                 </b-card-title>
                 <div class="price_box">
                   <label>Price:</label>
-                  <fa-icon :icon="['fas', 'rupee-sign']" />
-                  <span>{{ standard.rate }}</span>
+                  <div>
+                    <fa-icon :icon="['fas', 'rupee-sign']" />
+                    <span>{{ standard.rate }}</span>
+                  </div>
                 </div>
-                <b-card-text class="d-flex flex-column">
+                <b-card-text class="quality_details">
                   <div>
                     <label>Finish:</label>
                     <span>{{ standard.quality.finish }}</span>
@@ -115,12 +125,12 @@
           <template v-slot:title>
             <span>Premium</span>
           </template>
-          <div class="py-3">
+          <div>
             <b-card-group v-if="paintproducts.non_ceiling.premium" columns>
               <b-card
                 v-for="(premium, index) in paintproducts.non_ceiling.premium"
                 :key="index"
-                bg-variant="light"
+                bg-variant="white"
                 text-variant="dark"
                 :id="'wall_premium_' + index"
                 class="paint_product_box"
@@ -138,10 +148,12 @@
                 </b-card-title>
                 <div class="price_box">
                   <label>Price:</label>
-                  <fa-icon :icon="['fas', 'rupee-sign']" />
-                  <span>{{ premium.rate }}</span>
+                  <div>
+                    <fa-icon :icon="['fas', 'rupee-sign']" />
+                    <span>{{ premium.rate }}</span>
+                  </div>
                 </div>
-                <b-card-text class="d-flex flex-column">
+                <b-card-text class="quality_details">
                   <div>
                     <label>Finish:</label>
                     <span>{{ premium.quality.finish }}</span>
@@ -161,9 +173,11 @@
         </b-tab>
       </b-tabs>
       <div v-else>No products! Please check with our support team.</div>
-      <slot name="wallpaintError"></slot>
-      <h3 v-if="Object.keys(paintproducts.ceiling).length">Ceiling Paints</h3>
+      <h3 v-if="Object.keys(paintproducts.ceiling).length" class="pt-3">
+        Ceiling Paints
+      </h3>
       <hr />
+      <slot name="ceilingpaintError"></slot>
       <div
         v-if="
           Object.keys(ceilingPaintProduct).length && ceilingPaintProduct.product
@@ -173,17 +187,22 @@
         <label>Selected Ceiling Paint:</label>
         <span>{{ ceilingPaintProduct.product }}</span>
       </div>
-      <b-tabs v-if="Object.keys(paintproducts.ceiling).length">
+      <b-tabs
+        v-if="Object.keys(paintproducts.ceiling).length"
+        vertical
+        pills
+        card
+      >
         <b-tab active>
           <template v-slot:title>
             <span>Economy</span>
           </template>
-          <div class="py-3">
+          <div>
             <b-card-group v-if="paintproducts.ceiling.economy" columns>
               <b-card
                 v-for="(economy, index) in paintproducts.ceiling.economy"
                 :key="index"
-                bg-variant="light"
+                bg-variant="white"
                 text-variant="dark"
                 :id="'ceiling_economy_' + index"
                 class="paint_product_box"
@@ -205,10 +224,12 @@
                 </b-card-title>
                 <div class="price_box">
                   <label>Price:</label>
-                  <fa-icon :icon="['fas', 'rupee-sign']" />
-                  <span>{{ economy.rate }}</span>
+                  <div>
+                    <fa-icon :icon="['fas', 'rupee-sign']" />
+                    <span>{{ economy.rate }}</span>
+                  </div>
                 </div>
-                <b-card-text class="d-flex flex-column">
+                <b-card-text class="quality_details">
                   <div>
                     <label>Finish:</label>
                     <span>{{ economy.quality.finish }}</span>
@@ -230,12 +251,12 @@
           <template v-slot:title>
             <span>Standard</span>
           </template>
-          <div class="py-3">
+          <div>
             <b-card-group v-if="paintproducts.ceiling.standard" columns>
               <b-card
                 v-for="(standard, index) in paintproducts.ceiling.standard"
                 :key="index"
-                bg-variant="light"
+                bg-variant="white"
                 text-variant="dark"
                 :id="'ceiling_standard_' + index"
                 class="paint_product_box"
@@ -257,10 +278,12 @@
                 </b-card-title>
                 <div class="price_box">
                   <label>Price:</label>
-                  <fa-icon :icon="['fas', 'rupee-sign']" />
-                  <span>{{ standard.rate }}</span>
+                  <div>
+                    <fa-icon :icon="['fas', 'rupee-sign']" />
+                    <span>{{ standard.rate }}</span>
+                  </div>
                 </div>
-                <b-card-text class="d-flex flex-column">
+                <b-card-text class="quality_details">
                   <div>
                     <label>Finish:</label>
                     <span>{{ standard.quality.finish }}</span>
@@ -282,12 +305,12 @@
           <template v-slot:title>
             <span>Premium</span>
           </template>
-          <div class="py-3">
+          <div>
             <b-card-group v-if="paintproducts.ceiling.premium" columns>
               <b-card
                 v-for="(premium, index) in paintproducts.ceiling.premium"
                 :key="index"
-                bg-variant="light"
+                bg-variant="white"
                 text-variant="dark"
                 :id="'ceiling_premium_' + index"
                 class="paint_product_box"
@@ -309,10 +332,12 @@
                 </b-card-title>
                 <div class="price_box">
                   <label>Price:</label>
-                  <fa-icon :icon="['fas', 'rupee-sign']" />
-                  <span>{{ premium.rate }}</span>
+                  <div>
+                    <fa-icon :icon="['fas', 'rupee-sign']" />
+                    <span>{{ premium.rate }}</span>
+                  </div>
                 </div>
-                <b-card-text class="d-flex flex-column">
+                <b-card-text class="quality_details">
                   <div>
                     <label>Finish:</label>
                     <span>{{ premium.quality.finish }}</span>
@@ -331,7 +356,6 @@
           </div>
         </b-tab>
       </b-tabs>
-      <slot name="ceilingpaintError"></slot>
     </div>
   </div>
 </template>
@@ -353,12 +377,12 @@ export default {
     selectedPaintProduct(object, index, type) {
       this.activeWallProductId = type + "_" + index;
       this.wallsPaintProduct = object;
-      this.checkErrors();
+      this.checkErrors("paint_product");
     },
     selectedCeilingProduct(object, index, type) {
       this.activeCeilingProductId = type + "_" + index;
       this.ceilingPaintProduct = object;
-      this.checkErrors();
+      this.checkErrors("ceiling_product");
     }
   },
   computed: {

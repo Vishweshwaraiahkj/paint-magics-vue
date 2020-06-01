@@ -1,9 +1,9 @@
 <template>
-  <div class="estimateContainer">
+  <div class="estimateContainer" id="estimateBox">
     <div class="statusIndicators">
       <div
         class="options colorIndicator wizard-step"
-        :class="{ active: optionsPage }"
+        :class="{ active: pagesArray.includes('optionsPage') }"
       >
         <div class="wizard-label">
           <fa-icon :icon="['fas', 'edit']" size="2x" />
@@ -13,11 +13,11 @@
       <fa-icon
         :icon="['fas', 'chevron-right']"
         size="1x"
-        :class="{ active: optionsPage }"
+        :class="{ active: pagesArray.includes('optionsPage') }"
       />
       <div
         class="paintProds colorIndicator wizard-step"
-        :class="{ active: paintProducts }"
+        :class="{ active: pagesArray.includes('paintProducts') }"
       >
         <div class="wizard-label">
           <fa-icon :icon="['fas', 'check-double']" size="2x" />
@@ -27,11 +27,11 @@
       <fa-icon
         :icon="['fas', 'chevron-right']"
         size="1x"
-        :class="{ active: paintProducts }"
+        :class="{ active: pagesArray.includes('paintProducts') }"
       />
       <div
         class="results colorIndicator wizard-step"
-        :class="{ active: resultsPage }"
+        :class="{ active: pagesArray.includes('resultsPage') }"
       >
         <div class="wizard-label">
           <fa-icon :icon="['fas', 'poll-h']" size="2x" />
@@ -82,35 +82,35 @@
           />
         </Floor>
 
-        <Area
+        <AreaBox
           v-if="estimationData.area_type"
           :area_type="estimationData.area_type"
-        />
-
-        <ErrorMessage
-          v-if="
-            errors.area_value &&
-              (!userData.areaValue || userData.areaValue == 0)
-          "
-          :errorMessage="errors.area_value.message"
-        />
+        >
+          <ErrorMessage
+            v-if="
+              errors.area_value &&
+                (!userData.areaValue || userData.areaValue == 0)
+            "
+            :errorMessage="errors.area_value.message"
+          />
+        </AreaBox>
 
         <Paint
           v-if="estimationData.painttypes"
           :painttypes="estimationData.painttypes"
-        />
-
-        <ErrorMessage
-          v-if="errors.paint_type && !userData.paintTypeValue.text"
-          :errorMessage="errors.paint_type.message"
-        />
+        >
+          <ErrorMessage
+            v-if="errors.paint_type && !userData.paintTypeValue.text"
+            :errorMessage="errors.paint_type.message"
+          />
+        </Paint>
       </div>
 
       <div v-if="paintProducts" class="paintProducts">
         <PaintProducts
           v-if="filteredPaintproducts"
           :paintproducts="filteredPaintproducts"
-          :checkErrors="checkPaints"
+          :checkErrors="checkErrors"
         >
           <template v-slot:wallpaintError>
             <ErrorMessage
@@ -142,7 +142,7 @@
               variant="light"
               :disabled="!previousPage"
               @click="navigateTo(previousPage, 'prev')"
-              class="px-5 font-weight-bold text-uppercase"
+              class="px-5 py-3 font-weight-bold text-uppercase"
             >
               <fa-icon :icon="['fas', 'arrow-left']" size="1x" class="mr-3" />
               {{ PreviousBtnName }}
@@ -154,7 +154,7 @@
               variant="primary"
               :disabled="!nextPage"
               @click="navigateTo(nextPage, 'next')"
-              class="px-5 font-weight-bold text-uppercase"
+              class="px-5 py-3 font-weight-bold text-uppercase"
             >
               {{ NextBtnName }}
               <fa-icon :icon="['fas', 'arrow-right']" size="1x" class="ml-3" />
@@ -173,7 +173,7 @@ import City from "@/components/estimator/city.vue";
 import Type from "@/components/estimator/type.vue";
 import Bhk from "@/components/estimator/bhk.vue";
 import Floor from "@/components/estimator/floor.vue";
-import Area from "@/components/estimator/area.vue";
+import AreaBox from "@/components/estimator/area.vue";
 import Paint from "@/components/estimator/paint.vue";
 import PaintProducts from "@/components/estimator/paintproducts.vue";
 import ResultsPage from "@/components/estimator/resultspage.vue";
@@ -185,7 +185,7 @@ export default {
     Type,
     Bhk,
     Floor,
-    Area,
+    AreaBox,
     Paint,
     PaintProducts,
     ResultsPage,
@@ -203,7 +203,8 @@ export default {
       paint_errors: {},
       userData: this.$store.state.calculationData,
       NextBtnName: "Select Paint(s)",
-      PreviousBtnName: ""
+      PreviousBtnName: "",
+      enabledArray: ["optionsPage"]
     };
   },
   methods: {
@@ -213,12 +214,14 @@ export default {
           if (this.checkForm()) return;
           this.NextBtnName = "Finish";
           this.PreviousBtnName = "Options";
+          this.enabledArray.push("paintProducts", "optionsPage");
         }
 
         if (pageType == "resultsPage") {
           if (this.checkPaints()) return;
           this.PreviousBtnName = "Select Paint(s)";
           this.NextBtnName = "";
+          this.enabledArray.push("optionsPage", "paintProducts", "resultsPage");
         }
       }
 
@@ -227,11 +230,15 @@ export default {
         if (pageType == "paintProducts") {
           this.NextBtnName = "Finish";
           this.PreviousBtnName = "Options";
+          this.enabledArray = [];
+          this.enabledArray.push("optionsPage", "paintProducts");
         }
 
         if (pageType == "optionsPage") {
           this.PreviousBtnName = "";
           this.NextBtnName = "Select Paint(s)";
+          this.enabledArray = [];
+          this.enabledArray.push("optionsPage");
         }
       }
 
@@ -320,6 +327,10 @@ export default {
         return true;
       }
     },
+    checkErrors: function(type) {
+      console.log("Type", type);
+      this.checkPaints();
+    },
     checkPaints: function() {
       this.paint_errors = {};
 
@@ -350,6 +361,7 @@ export default {
     }
   },
   mounted() {
+    window.scrollTo(0, 0);
     this.$store.dispatch("loadEstimationData");
   },
   computed: {
@@ -385,6 +397,9 @@ export default {
     },
     typeValue() {
       return this.userData.typeValue.code;
+    },
+    pagesArray() {
+      return this.enabledArray;
     }
   }
 };
