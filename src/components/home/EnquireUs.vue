@@ -14,13 +14,15 @@
           <b-form-group>
             <b-form-input type="number" placeholder="Phone..." />
           </b-form-group>
-          <b-button
-            variant="warning"
-            size="md"
-            type="submit"
-            class="text-white float-right"
-            >Submit</b-button
-          >
+          <b-form-group>
+            <b-button
+              variant="warning"
+              size="md"
+              type="submit"
+              class="text-white float-right"
+              >Submit</b-button
+            >
+          </b-form-group>
         </b-form>
       </b-col>
     </b-row>
